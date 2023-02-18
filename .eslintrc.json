@@ -4,6 +4,8 @@
     "project": "./tsconfig.json"
   },
   "rules": {
+    "semi": "off",
+    "@typescript-eslint/semi": ["error", "always"],
     "@typescript-eslint/prefer-readonly": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "off",
     "@typescript-eslint/no-misused-promises": "off",
