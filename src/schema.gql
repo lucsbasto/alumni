@@ -1,0 +1,30 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type GraduateEntity {
+  id: Float!
+  name: String!
+  email: String!
+}
+
+type Query {
+  findAllGraduate: [GraduateEntity!]!
+}
+
+type Mutation {
+  createGraduate(createGraduateInput: CreateGraduateInput!): GraduateEntity!
+  updateGraduate(updateGraduateInput: UpdateGraduateInput!): GraduateEntity!
+  deleteGraduate(id: Float!): GraduateEntity!
+}
+
+input CreateGraduateInput {
+  name: String!
+  email: String!
+}
+
+input UpdateGraduateInput {
+  id: Int!
+  name: String!
+  email: String!
+}
