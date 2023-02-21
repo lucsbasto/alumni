@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateGraduateInput } from './dto/create-graduate.input';
 import { UpdateGraduateInput } from './dto/update-graduate.input';
 import { GraduateEntity } from './entities/graduate.entity';
@@ -24,7 +24,7 @@ export class GraduateResolver {
   }
 
   @Mutation(() => GraduateEntity, { name: 'deleteGraduate' })
-  async delete (@Args('id') id: number): Promise<void> {
+  async delete (@Args('id', { type: () => Int }) id: number): Promise<void> {
     return this.graduateService.delete(id);
   }
 }

@@ -1,12 +1,27 @@
-import { Field } from "@nestjs/graphql";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Field, ObjectType } from '@nestjs/graphql';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
-export class Graduate {
+@ObjectType()
+export class GraduateEntity {
   @Field()
   @PrimaryGeneratedColumn()
-  id: number
+  id: number;
 
+  @Field()
   @Column()
-  name: string
+  name: string;
+
+  @Field()
+  @Column()
+  email: string;
+
+  @CreateDateColumn({ name: 'created_date' })
+  createdDate: Date;
+
+  @UpdateDateColumn({ name: 'updated_date' })
+  updatedDate: Date;
+
+  @DeleteDateColumn({ name: 'deleted_date' })
+  deletedDate: Date;
 }

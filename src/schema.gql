@@ -15,7 +15,7 @@ type Query {
 type Mutation {
   createGraduate(createGraduateInput: CreateGraduateInput!): GraduateEntity!
   updateGraduate(updateGraduateInput: UpdateGraduateInput!): GraduateEntity!
-  deleteGraduate(id: Float!): GraduateEntity!
+  deleteGraduate(id: Int!): GraduateEntity!
 }
 
 input CreateGraduateInput {
