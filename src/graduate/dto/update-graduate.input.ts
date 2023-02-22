@@ -1,13 +1,16 @@
-import { Field, InputType, Int } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql'
 
 @InputType()
 export class UpdateGraduateInput {
+  @Field()
+  id: string
+
+  @Field()
+  userId: string
+
   @Field(_type => Int)
-  id: number;
+  graduationYear: number
 
-  @Field()
-  name: string;
-
-  @Field()
-  email: string;
+  @Field(_type => [Int])
+  majorId: string[]
 }

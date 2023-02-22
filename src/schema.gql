@@ -2,29 +2,117 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type GraduateEntity {
-  id: Float!
+type Country {
+  id: String!
   name: String!
+  code: String!
+}
+
+type State {
+  id: String!
+  name: String!
+  UF: String!
+  country: Country!
+}
+
+type City {
+  id: String!
+  name: String!
+  state: State!
+}
+
+type Address {
+  id: String!
+  street: String!
+  number: Int!
+  zipcode: String!
+  city: City!
+}
+
+type User {
+  id: String!
+  firstName: String!
+  lastName: String!
   email: String!
+  phone: String!
+  password: String!
+  isAdmin: Boolean!
+  address: Address!
+}
+
+type College {
+  id: String!
+  user: User!
+  name: String!
+  address: Address!
+}
+
+type Major {
+  id: String!
+  name: String!
+  degree: String!
+  description: String!
+  colleges: [College!]!
+}
+
+type Graduate {
+  id: String!
+  user: User!
+  graduationYear: Int!
+  major: [Major!]!
 }
 
 type Query {
-  findAllGraduate: [GraduateEntity!]!
+  findAllCountry: [Country!]!
+  findAllGraduate: [Graduate!]!
+  findAllState: [State!]!
 }
 
 type Mutation {
-  createGraduate(createGraduateInput: CreateGraduateInput!): GraduateEntity!
-  updateGraduate(updateGraduateInput: UpdateGraduateInput!): GraduateEntity!
-  deleteGraduate(id: Int!): GraduateEntity!
+  createCountry(createCountryInput: CreateCountryInput!): Country!
+  updateCountry(updateCountryInput: UpdateCountryInput!): Country!
+  deleteCountry(id: String!): Country!
+  createGraduate(createGraduateInput: CreateGraduateInput!): Graduate!
+  updateGraduate(updateGraduateInput: UpdateGraduateInput!): Graduate!
+  deleteGraduate(id: Int!): Graduate!
+  createState(createStateInput: CreateStateInput!): State!
+  updateState(updateStateInput: UpdateStateInput!): State!
+  deleteState(id: String!): State!
+}
+
+input CreateCountryInput {
+  name: String!
+  code: String!
+}
+
+input UpdateCountryInput {
+  id: String!
+  name: String!
+  code: String!
 }
 
 input CreateGraduateInput {
-  name: String!
-  email: String!
+  userId: String!
+  graduationYear: Int!
+  majorId: [String!]!
 }
 
 input UpdateGraduateInput {
-  id: Int!
+  id: String!
+  userId: String!
+  graduationYear: Int!
+  majorId: [Int!]!
+}
+
+input CreateStateInput {
   name: String!
-  email: String!
+  UF: String!
+  countryId: Int!
+}
+
+input UpdateStateInput {
+  id: String!
+  name: String!
+  UF: String!
+  countryId: String!
 }

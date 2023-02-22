@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { GraduateEntity } from './entities/graduate.entity';
+import { Injectable } from '@nestjs/common'
+import { Repository } from 'typeorm'
+import { Graduate } from './entities/graduate.entity'
 
 @Injectable()
-export class GraduateRepository extends Repository<GraduateEntity> {}
+export class GraduateRepository extends Repository<Graduate> {}

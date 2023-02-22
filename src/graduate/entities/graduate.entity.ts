@@ -1,27 +1,33 @@
-import { Field, ObjectType } from '@nestjs/graphql';
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Field, Int, ObjectType } from '@nestjs/graphql'
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { Major } from '~/major/entities/major.entity'
+import { User } from '~/user/entities/user.entity'
 
 @Entity()
 @ObjectType()
-export class GraduateEntity {
+export class Graduate {
   @Field()
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string
 
-  @Field()
-  @Column()
-  name: string;
+  @Field(_type => User)
+  @OneToOne(_type => User)
+  user: User
 
-  @Field()
+  @Field(_type => Int)
   @Column()
-  email: string;
+  graduationYear: number
+
+  @Field(_type => [Major])
+  @ManyToMany(_type => Major, { eager: true })
+  major: Major[]
 
   @CreateDateColumn({ name: 'created_date' })
-  createdDate: Date;
+  createdDate: Date
 
   @UpdateDateColumn({ name: 'updated_date' })
-  updatedDate: Date;
+  updatedDate: Date
 
   @DeleteDateColumn({ name: 'deleted_date' })
-  deletedDate: Date;
+  deletedDate: Date
 }

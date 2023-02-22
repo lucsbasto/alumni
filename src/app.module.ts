@@ -5,8 +5,21 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { join } from 'path'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { GraduateEntity } from './graduate/entities/graduate.entity'
 import { CollegeModule } from './college/college.module'
+import { AddressModule } from './address/address.module'
+import { CountryModule } from './country/country.module'
+import { StateModule } from './state/state.module'
+import { UserModule } from './user/user.module'
+import { CityModule } from './city/city.module'
+import { MajorModule } from './major/major.module'
+import { Address } from './address/entities/address.entity'
+import { City } from './city/entities/city.entity'
+import { College } from './college/entities/college.entity'
+import { Country } from './country/entities/country.entity'
+import { Graduate } from './graduate/entities/graduate.entity'
+import { Major } from './major/entities/major.entity'
+import { State } from './state/entities/state.entity'
+import { User } from './user/entities/user.entity'
 
 @Module({
   imports: [
@@ -21,7 +34,7 @@ import { CollegeModule } from './college/college.module'
       password: process.env.DB_PASS!,
       database: process.env.DB_NAME!,
       type: 'postgres',
-      entities: [GraduateEntity],
+      entities: [Address, City, College, Country, Graduate, Major, State, User],
       synchronize: true,
       logging: false
     }),
@@ -29,8 +42,14 @@ import { CollegeModule } from './college/college.module'
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql')
     }),
+    AddressModule,
+    CityModule,
+    CollegeModule,
+    CountryModule,
     GraduateModule,
-    CollegeModule
+    MajorModule,
+    StateModule,
+    UserModule
 ],
   controllers: [],
   providers: []
