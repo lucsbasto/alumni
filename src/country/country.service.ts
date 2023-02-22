@@ -21,8 +21,8 @@ export class CountryService {
   }
 
   async update (_input: UpdateCountryInput): Promise<Country | null> {
-    const country = await this.repository.findOne({ where: { id: _input.id } })
-    return country
+    await this.repository.update({ id: _input.id }, { ..._input })
+    return this.repository.findOne({ where: { id: _input.id } })
   }
 
   async delete (id: string): Promise<void> {

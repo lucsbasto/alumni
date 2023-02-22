@@ -1,5 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { State } from '~/state/entities/state.entity'
 
 @Entity()
 @ObjectType()
@@ -15,6 +16,10 @@ export class Country {
   @Field()
   @Column()
   code: string
+
+  @Field(_type => State)
+  @OneToOne(_type => State, country => Country)
+  state: State
 
   @CreateDateColumn({ name: 'created_date' })
   createdDate: Date

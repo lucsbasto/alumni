@@ -11,6 +11,6 @@ export class UpdateGraduateInput {
   @Field(_type => Int)
   graduationYear: number
 
-  @Field(_type => [Int])
+  @Field(_type => [String])
   majorId: string[]
 }

@@ -1,17 +1,16 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { ObjectID } from 'typeorm'
 
 @InputType()
 export class UpdateCollegeInput {
   @Field()
-  id: ObjectID
+  id: string
 
   @Field()
   name: string
 
   @Field()
-  userId: ObjectID
+  userId: string
 
   @Field()
-  addressId: ObjectID
+  addressId: string
 }

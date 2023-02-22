@@ -6,6 +6,7 @@ type Country {
   id: String!
   name: String!
   code: String!
+  state: State!
 }
 
 type State {
@@ -63,21 +64,76 @@ type Graduate {
 }
 
 type Query {
+  findAllAddress: [Address!]!
+  findAllCity: [City!]!
+  findAllCollege: [College!]!
   findAllCountry: [Country!]!
   findAllGraduate: [Graduate!]!
+  findAllMajor: [Major!]!
   findAllState: [State!]!
 }
 
 type Mutation {
+  createAddress(createAddressInput: CreateAddressInput!): Address!
+  updateAddress(updateAddressInput: UpdateAddressInput!): Address!
+  deleteAddress(id: String!): Address!
+  createCity(createCityInput: CreateCityInput!): City!
+  updateCity(updateCityInput: UpdateCityInput!): City!
+  deleteCity(id: String!): City!
+  createCollege(createCollegeInput: CreateCollegeInput!): College!
+  updateCollege(updateCollegeInput: UpdateCollegeInput!): College!
+  deleteCollege(id: String!): College!
   createCountry(createCountryInput: CreateCountryInput!): Country!
   updateCountry(updateCountryInput: UpdateCountryInput!): Country!
   deleteCountry(id: String!): Country!
   createGraduate(createGraduateInput: CreateGraduateInput!): Graduate!
   updateGraduate(updateGraduateInput: UpdateGraduateInput!): Graduate!
   deleteGraduate(id: Int!): Graduate!
+  createMajor(createMajorInput: CreateMajorInput!): Major!
+  updateMajor(updateMajorInput: UpdateMajorInput!): Major!
+  deleteMajor(id: String!): Major!
   createState(createStateInput: CreateStateInput!): State!
   updateState(updateStateInput: UpdateStateInput!): State!
   deleteState(id: String!): State!
+}
+
+input CreateAddressInput {
+  street: String!
+  zipcode: String!
+  cityId: String!
+  number: Int!
+}
+
+input UpdateAddressInput {
+  id: String!
+  street: String!
+  zipcode: String!
+  cityId: String!
+  number: Int!
+}
+
+input CreateCityInput {
+  name: String!
+  stateId: String!
+}
+
+input UpdateCityInput {
+  id: String!
+  name: String!
+  stateId: String!
+}
+
+input CreateCollegeInput {
+  name: String!
+  userId: String!
+  addressId: String!
+}
+
+input UpdateCollegeInput {
+  id: String!
+  name: String!
+  userId: String!
+  addressId: String!
 }
 
 input CreateCountryInput {
@@ -101,13 +157,28 @@ input UpdateGraduateInput {
   id: String!
   userId: String!
   graduationYear: Int!
-  majorId: [Int!]!
+  majorId: [String!]!
+}
+
+input CreateMajorInput {
+  name: String!
+  degree: String!
+  description: String!
+  collegesId: [String!]!
+}
+
+input UpdateMajorInput {
+  id: String!
+  name: String!
+  degree: String!
+  description: String!
+  collegesId: [String!]!
 }
 
 input CreateStateInput {
   name: String!
   UF: String!
-  countryId: Int!
+  countryId: String!
 }
 
 input UpdateStateInput {
