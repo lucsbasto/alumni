@@ -1,12 +1,12 @@
-import { Module } from '@nestjs/common';
-import { GraduateModule } from './graduate/graduate.module';
-import { ConfigModule } from '@nestjs/config';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { join } from 'path';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { GraduateEntity } from './graduate/entities/graduate.entity';
-import { CollegeModule } from './college/college.module';
+import { Module } from '@nestjs/common'
+import { GraduateModule } from './graduate/graduate.module'
+import { ConfigModule } from '@nestjs/config'
+import { GraphQLModule } from '@nestjs/graphql'
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
+import { join } from 'path'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { GraduateEntity } from './graduate/entities/graduate.entity'
+import { CollegeModule } from './college/college.module'
 
 @Module({
   imports: [
