@@ -6,6 +6,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraduateEntity } from './graduate/entities/graduate.entity';
+import { CollegeModule } from './college/college.module';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { GraduateEntity } from './graduate/entities/graduate.entity';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql')
     }),
-    GraduateModule
+    GraduateModule,
+    CollegeModule
 ],
   controllers: [],
   providers: []
