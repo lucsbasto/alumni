@@ -5,9 +5,6 @@ export class UpdateGraduateInput {
   @Field()
   id: string
 
-  @Field()
-  userId: string
-
   @Field(_type => Int)
   graduationYear: number
 

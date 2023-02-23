@@ -22,10 +22,10 @@ export class CollegeService {
 
   async create (input: CreateCollegeInput): Promise<College> {
     const address = await this.addressRepository.findOneBy({ id: input.addressId })
-    const user = await this.userRepository.findOneBy({ id: input.userId })
     if (!address) {
       throw new NotFoundException('Address not found')
     }
+    const user = await this.userRepository.findOneBy({ id: input.userId })
     if (!user) {
       throw new NotFoundException('User not found')
     }

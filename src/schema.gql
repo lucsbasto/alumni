@@ -52,19 +52,20 @@ type College {
   majors: [Major!]
 }
 
+type Graduate {
+  id: String!
+  user: User!
+  graduationYear: Int!
+  majors: [Major!]!
+}
+
 type Major {
   id: String!
   name: String!
   degree: String!
   description: String!
   college: College!
-}
-
-type Graduate {
-  id: String!
-  user: User!
-  graduationYear: Int!
-  major: [Major!]!
+  graduates: [Graduate!]!
 }
 
 type Query {
@@ -165,12 +166,10 @@ input UpdateCountryInput {
 input CreateGraduateInput {
   userId: String!
   graduationYear: Int!
-  majorId: [String!]!
 }
 
 input UpdateGraduateInput {
   id: String!
-  userId: String!
   graduationYear: Int!
   majorId: [String!]!
 }

@@ -20,9 +20,9 @@ export class Graduate {
   graduationYear: number
 
   @Field(_type => [Major])
-  @ManyToMany(_type => Major)
+  @ManyToMany(_type => Major, major => major.graduates)
   @JoinTable()
-  major: Major[]
+  majors: Major[]
 
   @CreateDateColumn({ name: 'created_date' })
   createdDate: Date

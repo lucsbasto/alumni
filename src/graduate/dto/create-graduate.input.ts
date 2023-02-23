@@ -7,7 +7,4 @@ export class CreateGraduateInput {
 
   @Field(_type => Int)
   graduationYear: number
-
-  @Field(_type => [String])
-  majorId: string[]
 }
