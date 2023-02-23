@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql'
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { City } from '~/city/entities/city.entity'
 
 @Entity()
@@ -11,18 +11,22 @@ export class Address {
 
   @Field()
   @Column()
+  block: string
+
+  @Field()
+  @Column()
   street: string
 
-  @Field(_type => Int)
+  @Field()
   @Column()
-  number: number
+  number: string
 
   @Field()
   @Column()
   zipcode: string
 
   @Field(_type => City)
-  @OneToOne(_type => City)
+  @ManyToOne(_type => City, city => city.addresses)
   city: City
 
   @CreateDateColumn({ name: 'created_date' })

@@ -6,6 +6,9 @@ export class UpdateAddressInput {
   id: string
 
   @Field()
+  block: string
+
+  @Field()
   street: string
 
   @Field()
@@ -14,6 +17,12 @@ export class UpdateAddressInput {
   @Field()
   cityId: string
 
-  @Field(_type => Int)
-  number: number
+  @Field()
+  number: string
+
+  @Field()
+  lot: string
+
+  @Field()
+  complement: string
 }

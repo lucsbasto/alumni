@@ -14,18 +14,21 @@ type State {
   name: String!
   UF: String!
   country: Country!
+  city: City!
 }
 
 type City {
   id: String!
   name: String!
   state: State!
+  addresses: Address!
 }
 
 type Address {
   id: String!
+  block: String!
   street: String!
-  number: Int!
+  number: String!
   zipcode: String!
   city: City!
 }
@@ -98,18 +101,24 @@ type Mutation {
 }
 
 input CreateAddressInput {
+  block: String!
   street: String!
   zipcode: String!
   cityId: String!
-  number: Int!
+  number: String!
+  lot: String!
+  complement: String!
 }
 
 input UpdateAddressInput {
   id: String!
+  block: String!
   street: String!
   zipcode: String!
   cityId: String!
-  number: Int!
+  number: String!
+  lot: String!
+  complement: String!
 }
 
 input CreateCityInput {

@@ -18,7 +18,7 @@ export class Country {
   code: string
 
   @Field(_type => State)
-  @OneToOne(_type => State, country => Country)
+  @OneToOne(_type => State, _country => Country)
   state: State
 
   @CreateDateColumn({ name: 'created_date' })

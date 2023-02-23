@@ -14,7 +14,7 @@ export class CityResolver {
   }
 
   @Mutation(() => City, { name: 'createCity' })
-  async create (@Args('createCityInput') createCityInput: CreateCityInput): Promise<City> {
+  async create (@Args('createCityInput') createCityInput: CreateCityInput): Promise<City | null> {
     return this.service.create(createCityInput)
   }
 

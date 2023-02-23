@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common'
+import { NotFoundException } from '@nestjs/common/exceptions'
 import { InjectRepository } from '@nestjs/typeorm'
+import { State } from '~/state/entities/state.entity'
+import { StateRepository } from '~/state/state.repository'
 import { CityRepository } from './city.repository'
 import { CreateCityInput } from './dto/create-city.input'
 import { UpdateCityInput } from './dto/update-city.input'
@@ -9,15 +12,26 @@ import { City } from './entities/city.entity'
 export class CityService {
   constructor (
     @InjectRepository(City)
-    private readonly repository: CityRepository
+    private readonly repository: CityRepository,
+    @InjectRepository(State)
+    private readonly stateRepository: StateRepository
   ) {}
 
-  async create (input: CreateCityInput): Promise<City> {
-    return this.repository.save(input)
-  }
+  async create (input: CreateCityInput): Promise<City | null> {
+    const state = await this.stateRepository.findOneBy({ id: input.stateId })
+    if (!state) {
+      throw new NotFoundException('State not found')
+    }
+    return this.repository.save({
+      ...input,
+      state
+    })
+}
 
   async findAll (): Promise<City[]> {
-    return this.repository.find()
+    return this.repository.find({
+      relations: ['state']
+    })
   }
 
   async update (_input: UpdateCityInput): Promise<City | null> {
