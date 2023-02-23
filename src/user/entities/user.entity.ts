@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Address } from '~/address/entities/address.entity'
 
 @Entity()
@@ -35,6 +35,7 @@ export class User {
 
   @Field()
   @OneToOne(_type => Address)
+  @JoinColumn({ name: 'addressId' })
   address: Address
 
   @CreateDateColumn({ name: 'created_date' })

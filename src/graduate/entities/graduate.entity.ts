@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql'
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Major } from '~/major/entities/major.entity'
 import { User } from '~/user/entities/user.entity'
 
@@ -12,6 +12,7 @@ export class Graduate {
 
   @Field(_type => User)
   @OneToOne(_type => User)
+  @JoinColumn({ name: 'userId' })
   user: User
 
   @Field(_type => Int)
@@ -19,7 +20,8 @@ export class Graduate {
   graduationYear: number
 
   @Field(_type => [Major])
-  @ManyToMany(_type => Major, { eager: true })
+  @ManyToMany(_type => Major)
+  @JoinTable()
   major: Major[]
 
   @CreateDateColumn({ name: 'created_date' })

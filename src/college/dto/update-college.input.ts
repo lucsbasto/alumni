@@ -13,4 +13,7 @@ export class UpdateCollegeInput {
 
   @Field()
   addressId: string
+
+  @Field(_type => [String])
+  majorsId: string[]
 }

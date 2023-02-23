@@ -1,9 +1,10 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql'
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { Field, ObjectType } from '@nestjs/graphql'
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { City } from '~/city/entities/city.entity'
 
 @Entity()
 @ObjectType()
+@Index(['block', 'street', 'number', 'zipcode', 'city.id'], { unique: true })
 export class Address {
   @Field()
   @PrimaryGeneratedColumn('uuid')

@@ -26,7 +26,7 @@ export class UserService {
   }
 
   async findAll (): Promise<User[]> {
-    return this.repository.find()
+    return this.repository.find({ relations: ['address'] })
   }
 
   async update (_input: UpdateUserInput): Promise<User | null> {

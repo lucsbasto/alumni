@@ -10,7 +10,4 @@ export class CreateMajorInput {
 
   @Field()
   description: string
-
-  @Field(_type => [String])
-  collegesId: string[]
 }

@@ -5,15 +5,15 @@ export class UpdateMajorInput {
   @Field()
   id: string
 
-  @Field()
+  @Field({ nullable: true })
   name: string
 
-  @Field()
+  @Field({ nullable: true })
   degree: string
 
-  @Field()
+  @Field({ nullable: true })
   description: string
 
-  @Field(_type => [String])
-  collegesId: string[]
+  @Field({ nullable: true })
+  collegeId: string
 }

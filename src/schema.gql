@@ -49,6 +49,7 @@ type College {
   user: User!
   name: String!
   address: Address!
+  majors: [Major!]
 }
 
 type Major {
@@ -56,7 +57,7 @@ type Major {
   name: String!
   degree: String!
   description: String!
-  colleges: [College!]!
+  college: College!
 }
 
 type Graduate {
@@ -74,6 +75,7 @@ type Query {
   findAllGraduate: [Graduate!]!
   findAllMajor: [Major!]!
   findAllState: [State!]!
+  findAllUser: [User!]!
 }
 
 type Mutation {
@@ -98,6 +100,9 @@ type Mutation {
   createState(createStateInput: CreateStateInput!): State!
   updateState(updateStateInput: UpdateStateInput!): State!
   deleteState(id: String!): State!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  deleteUser(id: String!): User!
 }
 
 input CreateAddressInput {
@@ -143,6 +148,7 @@ input UpdateCollegeInput {
   name: String!
   userId: String!
   addressId: String!
+  majorsId: [String!]!
 }
 
 input CreateCountryInput {
@@ -173,15 +179,14 @@ input CreateMajorInput {
   name: String!
   degree: String!
   description: String!
-  collegesId: [String!]!
 }
 
 input UpdateMajorInput {
   id: String!
-  name: String!
-  degree: String!
-  description: String!
-  collegesId: [String!]!
+  name: String
+  degree: String
+  description: String
+  collegeId: String
 }
 
 input CreateStateInput {
@@ -195,4 +200,25 @@ input UpdateStateInput {
   name: String!
   UF: String!
   countryId: String!
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+  phone: String!
+  addressId: String!
+  isAdmin: Boolean!
+}
+
+input UpdateUserInput {
+  id: String!
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+  phone: String!
+  addressId: String!
+  isAdmin: Boolean!
 }
