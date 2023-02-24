@@ -15,13 +15,17 @@ export class Graduate {
   @JoinColumn({ name: 'userId' })
   user: User
 
-  @Field(_type => Int)
+  @Field()
   @Column()
-  graduationYear: number
+  startGraduation: string
+
+  @Field()
+  @Column()
+  endGraduation: string
 
   @Field(_type => [Major])
   @ManyToMany(_type => Major, major => major.graduates)
-  @JoinTable()
+  @JoinTable({ name: 'graduate_major' })
   majors: Major[]
 
   @CreateDateColumn({ name: 'created_date' })

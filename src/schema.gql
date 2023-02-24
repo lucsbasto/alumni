@@ -55,7 +55,8 @@ type College {
 type Graduate {
   id: String!
   user: User!
-  graduationYear: Int!
+  startGraduationYear: String!
+  endGraduationYear: String!
   majors: [Major!]!
 }
 
@@ -165,12 +166,14 @@ input UpdateCountryInput {
 
 input CreateGraduateInput {
   userId: String!
-  graduationYear: Int!
+  startGraduationYear: String!
+  endGraduationYear: String!
 }
 
 input UpdateGraduateInput {
   id: String!
-  graduationYear: Int!
+  startGraduationYear: String!
+  endGraduationYear: String!
   majorId: [String!]!
 }
 
