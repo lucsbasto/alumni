@@ -6,7 +6,7 @@ type Country {
   id: String!
   name: String!
   code: String!
-  state: State!
+  state: [State!]
 }
 
 type State {
@@ -41,8 +41,14 @@ type User {
   phone: String!
   password: String!
   isAdmin: Boolean!
+  birthday: DateTime!
   address: Address!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type College {
   id: String!
@@ -52,12 +58,42 @@ type College {
   majors: [Major!]
 }
 
+type Company {
+  id: String!
+  cnpj: String!
+  user: User!
+  address: Address!
+  job: Job!
+}
+
+type Skill {
+  id: String!
+  name: String!
+  level: String!
+  description: String!
+  major: Major!
+  jobs: [Job!]!
+}
+
+type Job {
+  id: String!
+  name: String!
+  experienceLevel: String!
+  work_model: String!
+  description: String!
+  openings: Int!
+  graduates: [Graduate!]!
+  company: Company!
+  skills: [Skill!]!
+}
+
 type Graduate {
   id: String!
   user: User!
-  startGraduationYear: String!
-  endGraduationYear: String!
+  startGraduation: String!
+  endGraduation: String!
   majors: [Major!]!
+  jobs: [Job!]!
 }
 
 type Major {
@@ -66,6 +102,7 @@ type Major {
   degree: String!
   description: String!
   college: College!
+  skills: [Skill!]
   graduates: [Graduate!]!
 }
 
@@ -166,14 +203,14 @@ input UpdateCountryInput {
 
 input CreateGraduateInput {
   userId: String!
-  startGraduationYear: String!
-  endGraduationYear: String!
+  startGraduation: String!
+  endGraduation: String!
 }
 
 input UpdateGraduateInput {
   id: String!
-  startGraduationYear: String!
-  endGraduationYear: String!
+  startGraduation: String!
+  endGraduation: String!
   majorId: [String!]!
 }
 

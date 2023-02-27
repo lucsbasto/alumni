@@ -1,46 +1,30 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { Address } from '~/address/entities/address.entity'
+import { City, Country } from '../entities'
 
 @Entity()
 @ObjectType()
-export class User {
+export class State {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Field()
   @Column()
-  firstName: string
+  name: string
 
   @Field()
-  @Column()
-  lastName: string
+  @Column({ length: 2 })
+  UF: string
 
-  @Field()
-  @Column()
-  email: string
+  @Field(_type => Country)
+  @OneToOne(_type => Country, _state => State)
+  @JoinColumn({ name: 'countryId' })
+  country: Country
 
-  @Field()
-  @Column()
-  phone: string
-
-  @Field()
-  @Column()
-  password: string
-
-  @Field()
-  @Column()
-  isAdmin: boolean
-
-  @Field(_type => Date)
-  @Column()
-  birthday: Date
-
-  @Field()
-  @OneToOne(_type => Address)
-  @JoinColumn({ name: 'addressId' })
-  address: Address
+  @Field(_type => City)
+  @OneToOne(_type => City, _state => State)
+  city: City
 
   @CreateDateColumn({ name: 'created_date' })
   createdDate: Date

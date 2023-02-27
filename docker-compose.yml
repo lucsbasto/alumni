@@ -13,10 +13,10 @@ services:
     volumes:
       - ./.docker/pgdata:/var/lib/postgresql
 
-  alumni_postgres_test:
-    container_name: alumni_postgres_test
-    image: postgres
-    environment:
-      - POSTGRES_USER=${DB_USER_TEST}
-      - POSTGRES_PASSWORD=${DB_PASS_TEST}
-      - POSTGRES_DB=${DB_NAME_TEST}
+  # alumni_postgres_test:
+  #   container_name: alumni_postgres_test
+  #   image: postgres
+  #   environment:
+  #     - POSTGRES_USER=${DB_USER_TEST}
+  #     - POSTGRES_PASSWORD=${DB_PASS_TEST}
+  #     - POSTGRES_DB=${DB_NAME_TEST}
