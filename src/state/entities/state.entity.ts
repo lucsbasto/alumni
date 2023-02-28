@@ -1,10 +1,11 @@
-import { Field, ObjectType } from '@nestjs/graphql'
+import { Field, InputType, ObjectType } from '@nestjs/graphql'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { City } from '~/city/entities/city.entity'
 import { Country } from '~/country/entities/country.entity'
 
 @Entity()
 @ObjectType()
+@InputType()
 export class State {
   @Field()
   @PrimaryGeneratedColumn('uuid')

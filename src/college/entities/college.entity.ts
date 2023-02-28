@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql'
+import { Field, InputType, ObjectType } from '@nestjs/graphql'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, Index, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Address } from '~/address/entities/address.entity'
 import { Major } from '~/major/entities/major.entity'
@@ -6,6 +6,7 @@ import { User } from '~/user/entities/user.entity'
 
 @Entity()
 @ObjectType()
+@InputType()
 export class College {
   @Field()
   @PrimaryGeneratedColumn('uuid')

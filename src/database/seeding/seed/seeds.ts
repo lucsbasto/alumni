@@ -8,6 +8,8 @@ import { addressFactory } from '../factory/address.factory'
 import { collegeFactory } from '../factory/college.factory'
 import { usersFactory } from '../factory/user.factory'
 import { graduateFactory } from '../factory/graduate.factory'
+import { companyFactory } from '../factory/company.factory'
+import { jobFactory } from '../factory/job.factory'
 
 const {
   DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME
@@ -21,7 +23,7 @@ const options: DataSourceOptions & SeederOptions = {
   password: DB_PASSWORD || 'postgres',
   database: DB_NAME || 'alumni_db',
   entities: [Address, City, Country, State, College, Company, Graduate, Job, Major, Skill, User],
-  factories: [addressFactory, collegeFactory, usersFactory, graduateFactory],
+  factories: [addressFactory, collegeFactory, usersFactory, graduateFactory, companyFactory, jobFactory],
   seeds: [MainSeeder]
 }
 

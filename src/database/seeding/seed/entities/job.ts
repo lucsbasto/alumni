@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { Company, Graduate, Skill } from '../entities'
+import { Company, Graduate, Skill } from '.'
 
 @Entity()
 @ObjectType()
@@ -34,7 +34,7 @@ export class Job {
   graduates: Graduate[]
 
   @Field(_type => Company)
-  @ManyToOne(_type => Company, _job => Job)
+  @ManyToOne(_type => Company, company => company.jobs)
   company: Company
 
   @Field(_type => [Skill])

@@ -7,7 +7,7 @@ export const addressFactory = setSeederFactory(Address, (faker: Faker) => {
   address.block = faker.address.county()
   address.number = faker.address.buildingNumber()
   address.street = faker.address.streetAddress()
-  address.zipcode = faker.address.zipCode()
+  address.zipcode = faker.address.zipCode('########')
   address.city = new City()
   return address
 })

@@ -15,10 +15,12 @@ export class CollegeSeeder implements Seeder {
     const addressFactory = factoryManager.get(Address)
     const usersFactory = factoryManager.get(User)
     const collegeFactory = factoryManager.get(College)
+
     const city = (await cityRepository.find({})).at(0)
+
     const userAddress = await addressRepository.save(await addressFactory.make(city))
     const collegeAddress = await addressRepository.save(await addressFactory.make(city))
-    const user = await userRepository.save(await usersFactory.make({ address: userAddress, isAdmin: true }))
+    const user = await userRepository.save(await usersFactory.make({ address: userAddress }))
     await collegeRepository.save(await collegeFactory.make({ user, address: collegeAddress }))
   }
 }

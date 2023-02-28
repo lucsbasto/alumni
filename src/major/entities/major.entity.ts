@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql'
+import { Field, InputType, ObjectType } from '@nestjs/graphql'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, Index, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { College } from '~/college/entities/college.entity'
 import { Graduate } from '~/graduate/entities/graduate.entity'
@@ -6,7 +6,7 @@ import { Skill } from '~/skill/entities/skill.entity'
 
 @Entity()
 @ObjectType()
-
+@InputType()
 @Index(['name', 'degree', 'description'], { unique: true })
 export class Major {
   @Field()

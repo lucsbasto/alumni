@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql'
+import { Field, InputType, Int, ObjectType } from '@nestjs/graphql'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Company } from '~/company/entities/company.entity'
 import { Graduate } from '~/graduate/entities/graduate.entity'
@@ -8,6 +8,7 @@ import { WorkModel } from '../enum/work-model.enum'
 
 @Entity()
 @ObjectType()
+@InputType()
 export class Job {
   @Field()
   @PrimaryGeneratedColumn('uuid')
@@ -38,7 +39,7 @@ export class Job {
   graduates: Graduate[]
 
   @Field(_type => Company)
-  @ManyToOne(_type => Company, _job => Job)
+  @ManyToOne(_type => Company, company => company.jobs)
   company: Company
 
   @Field(_type => [Skill])

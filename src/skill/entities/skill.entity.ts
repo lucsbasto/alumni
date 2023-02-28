@@ -1,11 +1,11 @@
-import { Field, ObjectType } from '@nestjs/graphql'
+import { Field, InputType, ObjectType } from '@nestjs/graphql'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Job } from '~/job/entities/job.entity'
 import { Major } from '~/major/entities/major.entity'
-import { LevelEnum } from '../enum/level.enum'
 
 @Entity()
 @ObjectType()
+@InputType()
 export class Skill {
   @Field()
   @PrimaryGeneratedColumn('uuid')
@@ -17,11 +17,11 @@ export class Skill {
 
   @Field()
   @Column()
-  level: LevelEnum
+  description: string
 
   @Field()
   @Column()
-  description: string
+  level: string
 
   @Field(_type => Major)
   @ManyToOne(_type => Major, _skill => Skill)

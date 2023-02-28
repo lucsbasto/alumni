@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql'
+import { Field, InputType, ObjectType } from '@nestjs/graphql'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Job } from '~/job/entities/job.entity'
 import { Major } from '~/major/entities/major.entity'
@@ -6,6 +6,7 @@ import { User } from '~/user/entities/user.entity'
 
 @Entity()
 @ObjectType()
+@InputType()
 export class Graduate {
   @Field()
   @PrimaryGeneratedColumn('uuid')

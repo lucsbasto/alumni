@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql'
+import { Field, InputType, ObjectType } from '@nestjs/graphql'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, Index, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Address } from '~/address/entities/address.entity'
 import { Job } from '~/job/entities/job.entity'
@@ -6,6 +6,7 @@ import { User } from '~/user/entities/user.entity'
 
 @Entity()
 @ObjectType()
+@InputType()
 export class Company {
   @Field()
   @PrimaryGeneratedColumn('uuid')
@@ -27,8 +28,8 @@ export class Company {
   address: Address
 
   @Field(_type => Job)
-  @OneToMany(_type => Job, _company => Company)
-  job: Job
+  @OneToMany(_type => Job, jobs => jobs.company)
+  jobs: Job
 
   @CreateDateColumn({ name: 'created_date' })
   createdDate: Date

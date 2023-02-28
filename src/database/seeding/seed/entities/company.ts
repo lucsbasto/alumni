@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, Index, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { Job, User, Address } from '../entities'
+import { Job, User, Address } from '.'
 
 @Entity()
 @ObjectType()
@@ -12,6 +12,10 @@ export class Company {
   @Field()
   @Column()
   cnpj: string
+
+  @Field()
+  @Column()
+  name: string
 
   @Field(_type => User)
   @OneToOne(_type => User)
@@ -25,8 +29,8 @@ export class Company {
   address: Address
 
   @Field(_type => Job)
-  @OneToMany(_type => Job, _company => Company)
-  job: Job
+  @OneToMany(_type => Job, jobs => jobs.company)
+  jobs: Job
 
   @CreateDateColumn({ name: 'created_date' })
   createdDate: Date
