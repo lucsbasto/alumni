@@ -16,8 +16,8 @@ export class GraduateSeeder implements Seeder {
     const usersFactory = factoryManager.get(User)
     const graduateFactory = factoryManager.get(Graduate)
     const city = (await cityRepository.find({})).at(0)
-    const address = await addressRepository.save(await addressFactory.make(city))
-    const user = await userRepository.save(await usersFactory.make(address))
-    await graduateRepository.save(await graduateFactory.make(user))
+    const address = await addressRepository.save(await addressFactory.make({ city }))
+    const user = await userRepository.save(await usersFactory.make({ address }))
+    await graduateRepository.save(await graduateFactory.make({ user }))
   }
 }
