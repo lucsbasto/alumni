@@ -17,11 +17,11 @@ export class Job {
   @Column()
   name: string
 
-  @Field()
+  @Field(_type => ExperienceLevelEnum)
   @Column()
   experienceLevel: ExperienceLevelEnum
 
-  @Field()
+  @Field(_type => WorkModel)
   @Column()
   work_model: WorkModel
 
@@ -45,6 +45,10 @@ export class Job {
   @ManyToMany(_type => Skill, skill => skill.jobs)
   @JoinTable({ name: 'job_skills' })
   skills: Skill[]
+
+  @Field()
+  @Column()
+  isOpen: boolean
 
   @CreateDateColumn({ name: 'created_date' })
   createdDate: Date

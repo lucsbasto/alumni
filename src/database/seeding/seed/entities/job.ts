@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { Company, Graduate, Skill } from '.'
+import { Company, Graduate, Skill } from '../entities'
 
 @Entity()
 @ObjectType()
@@ -41,6 +41,10 @@ export class Job {
   @ManyToMany(_type => Skill, skill => skill.jobs)
   @JoinTable({ name: 'job_skills' })
   skills: Skill[]
+
+  @Field()
+  @Column()
+  isOpen: boolean
 
   @CreateDateColumn({ name: 'created_date' })
   createdDate: Date

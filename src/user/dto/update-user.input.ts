@@ -1,4 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
+import { IsDate } from 'class-validator'
 
 @InputType()
 export class UpdateUserInput {
@@ -13,6 +14,10 @@ export class UpdateUserInput {
 
   @Field()
   email: string
+
+  @Field()
+  @IsDate()
+  birthdate: string
 
   @Field()
   password: string

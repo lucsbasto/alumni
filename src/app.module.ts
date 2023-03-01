@@ -12,7 +12,7 @@ import { StateModule } from './state/state.module'
 import { UserModule } from './user/user.module'
 import { CityModule } from './city/city.module'
 import { CompanyModule } from './company/company.module'
-import { MajorModule } from './major/major.module'
+import { CourseModule } from './course/course.module'
 import { JobModule } from './job/job.module'
 import { Address } from './address/entities/address.entity'
 import { City } from './city/entities/city.entity'
@@ -20,7 +20,7 @@ import { College } from './college/entities/college.entity'
 import { Country } from './country/entities/country.entity'
 import { Graduate } from './graduate/entities/graduate.entity'
 import { Job } from './job/entities/job.entity'
-import { Major } from './major/entities/major.entity'
+import { Course } from './course/entities/course.entity'
 import { Skill } from './skill/entities/skill.entity'
 import { State } from './state/entities/state.entity'
 import { User } from './user/entities/user.entity'
@@ -39,7 +39,7 @@ import { Company } from './company/entities/company.entity'
       password: process.env.DB_PASS!,
       database: process.env.DB_NAME!,
       type: 'postgres',
-      entities: [Address, City, College, Company, Country, Graduate, Job, Major, Skill, State, User],
+      entities: [Address, City, College, Company, Country, Graduate, Job, Course, Skill, State, User],
       synchronize: true,
       logging: true,
       autoLoadEntities: true
@@ -53,7 +53,7 @@ import { Company } from './company/entities/company.entity'
     CollegeModule,
     CompanyModule,
     GraduateModule,
-    MajorModule,
+    CourseModule,
     StateModule,
     UserModule,
     CountryModule,

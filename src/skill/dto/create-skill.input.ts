@@ -1,13 +1,17 @@
 import { Field, InputType } from '@nestjs/graphql'
+import { SkillLevel } from '../enum/skill-level.enum'
 
 @InputType()
 export class CreateSkillInput {
-  @Field()
+ @Field({ nullable: true })
   name: string
 
-  @Field()
+  @Field({ nullable: true })
   degree: string
 
-  @Field()
+  @Field(_type => SkillLevel)
+  level: SkillLevel
+
+  @Field({ nullable: true })
   description: string
 }

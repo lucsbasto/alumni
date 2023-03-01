@@ -35,7 +35,7 @@ export class User {
 
   @Field(_type => Date)
   @Column()
-  birthday: Date
+  birthdate: Date
 
   @Field()
   @OneToOne(_type => Address)

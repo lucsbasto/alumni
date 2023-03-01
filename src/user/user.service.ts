@@ -22,7 +22,7 @@ export class UserService {
     if (!address) {
       throw new NotFoundException('Address not found')
     }
-    return this.repository.save({ ...input, address })
+    return this.repository.save({ ...input, birthdate: new Date(input.birthdate), address })
   }
 
   async findAll (): Promise<User[]> {

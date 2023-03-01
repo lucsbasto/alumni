@@ -25,7 +25,7 @@ export class User {
   isAdmin: boolean
 
   @Column()
-  birthday: Date
+  birthdate: Date
 
   @OneToOne(_type => Address)
   @JoinColumn({ name: 'addressId' })

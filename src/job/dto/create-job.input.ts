@@ -12,7 +12,7 @@ export class CreateJobInput {
   @Field()
   description: string
 
-  @Field()
+  @Field(_type => WorkModel)
   work_model: WorkModel
 
   @Field(_type => Int)

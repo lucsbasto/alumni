@@ -12,5 +12,5 @@ export class UpdateGraduateInput {
   endGraduation: string
 
   @Field(_type => [String])
-  majorId: string[]
+  courseId: string[]
 }

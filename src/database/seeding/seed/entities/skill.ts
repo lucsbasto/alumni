@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { Job, Major } from '.'
+import { Job, Course } from '.'
 
 @Entity()
 @ObjectType()
@@ -21,9 +21,9 @@ export class Skill {
   @Column()
   level: string
 
-  @Field(_type => Major)
-  @ManyToOne(_type => Major, _skill => Skill)
-  major: Major
+  @Field(_type => Course)
+  @ManyToOne(_type => Course, _skill => Skill)
+  course: Course
 
   @Field(_type => [Job])
   @ManyToMany(_type => Job, job => job.skills)

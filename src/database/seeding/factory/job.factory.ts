@@ -13,5 +13,6 @@ export const jobFactory = setSeederFactory(Job, (faker: Faker) => {
   job.openings = Number(faker.random.numeric())
   job.work_model = faker.helpers.arrayElement([WorkModel.HIBRID, WorkModel.ON_SITE, WorkModel.REMOTE])
   job.skills = [new Skill()]
+  job.isOpen = true
   return job
 })

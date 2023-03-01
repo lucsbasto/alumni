@@ -7,7 +7,7 @@ import { Skill } from '~/skill/entities/skill.entity'
 @Entity()
 @ObjectType()
 @Index(['name', 'degree', 'description'], { unique: true })
-export class Major {
+export class Course {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id: string
@@ -25,16 +25,16 @@ export class Major {
   description: string
 
   @Field(_type => College)
-  @ManyToOne(_type => College, college => college.majors)
+  @ManyToOne(_type => College, college => college.courses)
   @JoinColumn({ name: 'collegeId' })
   college: College
 
   @Field(_type => [Skill], { nullable: true })
-  @OneToMany(_type => Skill, skill => skill.major, { nullable: true })
+  @OneToMany(_type => Skill, skill => skill.course, { nullable: true })
   skills: Skill[]
 
   @Field(_type => [Graduate])
-  @ManyToMany(_type => Graduate, graduate => graduate.majors)
+  @ManyToMany(_type => Graduate, graduate => graduate.courses)
   graduates: Graduate[]
 
   @CreateDateColumn({ name: 'created_date' })

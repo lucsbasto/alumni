@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Job } from '~/job/entities/job.entity'
-import { Major } from '~/major/entities/major.entity'
+import { Course } from '~/course/entities/course.entity'
 import { User } from '~/user/entities/user.entity'
 
 @Entity()
@@ -24,10 +24,10 @@ export class Graduate {
   @Column()
   endGraduation: string
 
-  @Field(_type => [Major])
-  @ManyToMany(_type => Major, major => major.graduates)
-  @JoinTable({ name: 'graduate_major' })
-  majors: Major[]
+  @Field(_type => [Course])
+  @ManyToMany(_type => Course, course => course.graduates)
+  @JoinTable({ name: 'graduate_course' })
+  courses: Course[]
 
   @Field(_type => [Job])
   @ManyToMany(_type => Job, job => job.graduates)

@@ -11,6 +11,7 @@ import { Address } from './entities/address.entity'
 @Injectable()
 export class AddressService {
   constructor (
+    @InjectRepository(Address)
     private readonly repository: AddressRepository,
     @InjectRepository(City)
     private readonly cityRepository: CityRepository
@@ -21,6 +22,7 @@ export class AddressService {
     if (!city) {
       throw new NotFoundException('City not found')
     }
+
     return this.repository.save({ ...input, city })
   }
 

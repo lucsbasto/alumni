@@ -41,7 +41,7 @@ type User {
   phone: String!
   password: String!
   isAdmin: Boolean!
-  birthday: DateTime!
+  birthdate: DateTime!
   address: Address!
 }
 
@@ -55,7 +55,7 @@ type College {
   user: User!
   name: String!
   address: Address!
-  majors: [Major!]
+  courses: [Course!]
 }
 
 type Company {
@@ -70,21 +70,43 @@ type Skill {
   id: String!
   name: String!
   description: String!
-  level: String!
-  major: Major!
+  level: SkillLevel!
+  course: Course!
   jobs: [Job!]!
+}
+
+enum SkillLevel {
+  NOVICE
+  BEGINNER
+  MIDDLE
+  PROFICIENT
+  EXPERT
 }
 
 type Job {
   id: String!
   name: String!
-  experienceLevel: String!
-  work_model: String!
+  experienceLevel: ExperienceLevelEnum!
+  work_model: WorkModel!
   description: String!
   openings: Int!
   graduates: [Graduate!]!
   company: Company!
   skills: [Skill!]!
+  isOpen: Boolean!
+}
+
+enum ExperienceLevelEnum {
+  ENTRY
+  JUNIOR
+  MID
+  SENIOR
+}
+
+enum WorkModel {
+  REMOTE
+  HIBRID
+  ON_SITE
 }
 
 type Graduate {
@@ -92,11 +114,11 @@ type Graduate {
   user: User!
   startGraduation: String!
   endGraduation: String!
-  majors: [Major!]!
+  courses: [Course!]!
   jobs: [Job!]!
 }
 
-type Major {
+type Course {
   id: String!
   name: String!
   degree: String!
@@ -111,7 +133,7 @@ type Query {
   findAllCity: [City!]!
   findAllCollege: [College!]!
   findAllGraduate: [Graduate!]!
-  findAllMajor: [Major!]!
+  findAllCourse: [Course!]!
   findAllState: [State!]!
   findAllUser: [User!]!
   findAllCountry: [Country!]!
@@ -131,9 +153,9 @@ type Mutation {
   createGraduate(createGraduateInput: CreateGraduateInput!): Graduate!
   updateGraduate(updateGraduateInput: UpdateGraduateInput!): Graduate!
   deleteGraduate(id: Int!): Graduate!
-  createMajor(createMajorInput: CreateMajorInput!): Major!
-  updateMajor(updateMajorInput: UpdateMajorInput!): Major!
-  deleteMajor(id: String!): Major!
+  createCourse(createCourseInput: CreateCourseInput!): Course!
+  updateCourse(updateCourseInput: UpdateCourseInput!): Course!
+  deleteCourse(id: String!): Course!
   createState(createStateInput: CreateStateInput!): State!
   updateState(updateStateInput: UpdateStateInput!): State!
   deleteState(id: String!): State!
@@ -146,6 +168,9 @@ type Mutation {
   createJob(createJobInput: CreateJobInput!): Job!
   updateJob(updateJobInput: UpdateJobInput!): Job!
   deleteJob(id: String!): Job!
+  closeJob(id: String!): Job!
+  findApplicants(id: String!): Job!
+  applyForJob(applyForJobInput: ApplyForJobInput!): Job!
 }
 
 input CreateAddressInput {
@@ -191,29 +216,41 @@ input UpdateCollegeInput {
   name: String!
   userId: String!
   addressId: String!
-  majorsId: [String!]!
+  coursesId: [String!]!
 }
 
 input CreateGraduateInput {
-  userId: String!
+  user: CreateUserInput!
   startGraduation: String!
   endGraduation: String!
+  courseId: [String!]!
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+  birthdate: String!
+  phone: String!
+  addressId: String!
+  isAdmin: Boolean!
 }
 
 input UpdateGraduateInput {
   id: String!
   startGraduation: String!
   endGraduation: String!
-  majorId: [String!]!
+  courseId: [String!]!
 }
 
-input CreateMajorInput {
+input CreateCourseInput {
   name: String!
   degree: String!
   description: String!
 }
 
-input UpdateMajorInput {
+input UpdateCourseInput {
   id: String!
   name: String
   degree: String
@@ -234,21 +271,12 @@ input UpdateStateInput {
   countryId: String!
 }
 
-input CreateUserInput {
-  firstName: String!
-  lastName: String!
-  email: String!
-  password: String!
-  phone: String!
-  addressId: String!
-  isAdmin: Boolean!
-}
-
 input UpdateUserInput {
   id: String!
   firstName: String!
   lastName: String!
   email: String!
+  birthdate: String!
   password: String!
   phone: String!
   addressId: String!
@@ -270,7 +298,7 @@ input CreateJobInput {
   name: String!
   degree: String!
   description: String!
-  work_model: String!
+  work_model: WorkModel!
   openings: Int!
   skills: [String!]!
 }
@@ -284,4 +312,9 @@ input UpdateJobInput {
   experienceLevel: String!
   openings: Int!
   skills: [String!]!
+}
+
+input ApplyForJobInput {
+  jobId: String!
+  graduateId: String!
 }

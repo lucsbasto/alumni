@@ -14,23 +14,27 @@ export class InitialSeeder implements Seeder {
     const userRepository = dataSource.getRepository(User)
 
     const brasil = await countryRepository.save({
+      id: '90bb196e-59dc-44a7-82c2-f4850c9eb767',
       code: 'BR',
       name: 'Brasil'
 
     })
 
     const tocantins = await stateRepository.save({
+      id: '052b11f4-d687-4d41-b120-6b6ed5862d86',
       country: brasil,
       name: 'Tocantins',
       UF: 'TO'
     })
 
     const palmas = await cityRepository.save({
+      id: '9149c0f3-1465-4ed1-8e0d-246e51c32cdd',
       name: 'Palmas',
       state: tocantins
     })
 
     const home = await addressRepository.save({
+      id: '86e5f619-4ed0-47a3-9689-9be1bfb94a47',
       city: palmas,
       block: '405 sul',
       number: '15',
@@ -39,8 +43,9 @@ export class InitialSeeder implements Seeder {
     })
 
     await userRepository.save({
+      id: '7d294a2f-d1e4-4528-b3b4-df1236adca48',
       address: home,
-      birthday: new Date('06/05/1995'),
+      birthdate: new Date('06/05/1995'),
       email: 'lucsbasto@gmail.com',
       isAdmin: true,
       firstName: 'Lucas',

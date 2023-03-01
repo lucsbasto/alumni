@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, Index, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { Address, Major, User } from '../entities'
+import { Address, Course, User } from '../entities'
 
 @Entity()
 @ObjectType()
@@ -25,9 +25,9 @@ export class College {
   @Index({ unique: true })
   address: Address
 
-  @Field(_type => [Major], { nullable: true })
-  @OneToMany(_type => Major, major => major.college, { nullable: true })
-  majors: Major[]
+  @Field(_type => [Course], { nullable: true })
+  @OneToMany(_type => Course, course => course.college, { nullable: true })
+  courses: Course[]
 
   @CreateDateColumn({ name: 'created_date' })
   createdDate: Date

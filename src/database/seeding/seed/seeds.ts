@@ -3,7 +3,7 @@ import { DataSource, DataSourceOptions } from 'typeorm'
 import { runSeeders, SeederOptions } from 'typeorm-extension'
 
 import { MainSeeder } from './main.seeder'
-import { Address, City, Country, State, College, Company, Graduate, Job, Major, Skill, User } from './entities'
+import { Address, City, Country, State, College, Company, Graduate, Job, Course, Skill, User } from './entities'
 import { addressFactory } from '../factory/address.factory'
 import { collegeFactory } from '../factory/college.factory'
 import { usersFactory } from '../factory/user.factory'
@@ -22,7 +22,7 @@ const options: DataSourceOptions & SeederOptions = {
   username: DB_USER || 'postgres',
   password: DB_PASSWORD || 'postgres',
   database: DB_NAME || 'alumni_db',
-  entities: [Address, City, Country, State, College, Company, Graduate, Job, Major, Skill, User],
+  entities: [Address, City, Country, State, College, Company, Graduate, Job, Course, Skill, User],
   factories: [addressFactory, collegeFactory, usersFactory, graduateFactory, companyFactory, jobFactory],
   seeds: [MainSeeder]
 }

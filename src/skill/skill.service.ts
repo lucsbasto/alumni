@@ -17,7 +17,7 @@ export class SkillService {
   }
 
   async findAll (): Promise<Skill[]> {
-    return this.repository.find()
+    return this.repository.find({ relations: [] })
   }
 
   async update (input: UpdateSkillInput): Promise<Skill | null> {

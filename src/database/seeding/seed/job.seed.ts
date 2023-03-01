@@ -18,7 +18,8 @@ export class JobSeeder implements Seeder {
 
     const job = await jobFactory.make({
       company,
-      skills: [psicologiaSkill, odontoSkill, engenhariaSkill]
+      skills: [psicologiaSkill, odontoSkill, engenhariaSkill],
+      isOpen: true
     })
 
     await jobRepository.save(job)
