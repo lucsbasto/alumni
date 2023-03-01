@@ -5,7 +5,6 @@ import { State } from '~/state/entities/state.entity'
 
 @Entity()
 @ObjectType()
-@InputType()
 @Index(['name', 'state.id'], { unique: true })
 export class City {
   @Field()

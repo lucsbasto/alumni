@@ -6,7 +6,6 @@ import { User } from '~/user/entities/user.entity'
 
 @Entity()
 @ObjectType()
-@InputType()
 export class College {
   @Field()
   @PrimaryGeneratedColumn('uuid')

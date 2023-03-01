@@ -1,43 +1,32 @@
-import { Field, ObjectType } from '@nestjs/graphql'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Address } from '.'
 
 @Entity()
-@ObjectType()
 export class User {
-  @Field()
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Field()
   @Column()
   firstName: string
 
-  @Field()
   @Column()
   lastName: string
 
-  @Field()
   @Column()
   email: string
 
-  @Field()
   @Column()
   phone: string
 
-  @Field()
   @Column()
   password: string
 
-  @Field()
   @Column()
   isAdmin: boolean
 
-  @Field(_type => Date)
   @Column()
   birthday: Date
 
-  @Field()
   @OneToOne(_type => Address)
   @JoinColumn({ name: 'addressId' })
   address: Address

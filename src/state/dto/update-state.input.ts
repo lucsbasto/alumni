@@ -1,4 +1,5 @@
-import { Field, InputType } from '@nestjs/graphql'
+import { Field, InputType, PartialType } from '@nestjs/graphql'
+import { UpdateCountryInput } from '~/country/dto/update-country.input'
 
 @InputType()
 export class UpdateStateInput {

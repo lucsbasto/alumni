@@ -1,11 +1,10 @@
-import { Field, InputType, ObjectType } from '@nestjs/graphql'
+import { Field, ObjectType } from '@nestjs/graphql'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Job } from '~/job/entities/job.entity'
 import { Major } from '~/major/entities/major.entity'
 
 @Entity()
 @ObjectType()
-@InputType()
 export class Skill {
   @Field()
   @PrimaryGeneratedColumn('uuid')

@@ -63,14 +63,14 @@ type Company {
   cnpj: String!
   user: User!
   address: Address!
-  job: Job!
+  jobs: Job!
 }
 
 type Skill {
   id: String!
   name: String!
-  level: String!
   description: String!
+  level: String!
   major: Major!
   jobs: [Job!]!
 }
@@ -110,11 +110,12 @@ type Query {
   findAllAddress: [Address!]!
   findAllCity: [City!]!
   findAllCollege: [College!]!
-  findAllCountry: [Country!]!
   findAllGraduate: [Graduate!]!
   findAllMajor: [Major!]!
   findAllState: [State!]!
   findAllUser: [User!]!
+  findAllCountry: [Country!]!
+  findAllJob: [Job!]!
 }
 
 type Mutation {
@@ -127,9 +128,6 @@ type Mutation {
   createCollege(createCollegeInput: CreateCollegeInput!): College!
   updateCollege(updateCollegeInput: UpdateCollegeInput!): College!
   deleteCollege(id: String!): College!
-  createCountry(createCountryInput: CreateCountryInput!): Country!
-  updateCountry(updateCountryInput: UpdateCountryInput!): Country!
-  deleteCountry(id: String!): Country!
   createGraduate(createGraduateInput: CreateGraduateInput!): Graduate!
   updateGraduate(updateGraduateInput: UpdateGraduateInput!): Graduate!
   deleteGraduate(id: Int!): Graduate!
@@ -142,6 +140,12 @@ type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   deleteUser(id: String!): User!
+  createCountry(createCountryInput: CreateCountryInput!): Country!
+  updateCountry(updateCountryInput: UpdateCountryInput!): Country!
+  deleteCountry(id: String!): Country!
+  createJob(createJobInput: CreateJobInput!): Job!
+  updateJob(updateJobInput: UpdateJobInput!): Job!
+  deleteJob(id: String!): Job!
 }
 
 input CreateAddressInput {
@@ -188,17 +192,6 @@ input UpdateCollegeInput {
   userId: String!
   addressId: String!
   majorsId: [String!]!
-}
-
-input CreateCountryInput {
-  name: String!
-  code: String!
-}
-
-input UpdateCountryInput {
-  id: String!
-  name: String!
-  code: String!
 }
 
 input CreateGraduateInput {
@@ -260,4 +253,35 @@ input UpdateUserInput {
   phone: String!
   addressId: String!
   isAdmin: Boolean!
+}
+
+input CreateCountryInput {
+  name: String!
+  code: String!
+}
+
+input UpdateCountryInput {
+  id: String!
+  name: String!
+  code: String!
+}
+
+input CreateJobInput {
+  name: String!
+  degree: String!
+  description: String!
+  work_model: String!
+  openings: Int!
+  skills: [String!]!
+}
+
+input UpdateJobInput {
+  id: String!
+  name: String!
+  degree: String!
+  description: String!
+  work_model: String!
+  experienceLevel: String!
+  openings: Int!
+  skills: [String!]!
 }

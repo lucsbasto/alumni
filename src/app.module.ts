@@ -52,11 +52,11 @@ import { Company } from './company/entities/company.entity'
     CityModule,
     CollegeModule,
     CompanyModule,
-    CountryModule,
     GraduateModule,
     MajorModule,
     StateModule,
     UserModule,
+    CountryModule,
     JobModule
 ],
   controllers: [],

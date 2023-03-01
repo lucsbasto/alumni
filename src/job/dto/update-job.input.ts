@@ -1,5 +1,5 @@
-import { Field, InputType, Int } from '@nestjs/graphql'
-import { Skill } from '~/skill/entities/skill.entity'
+import { Field, InputType, Int, PartialType } from '@nestjs/graphql'
+import { UpdateSkillInput } from '~/skill/dto/update-skill.input'
 import { ExperienceLevelEnum } from '../enum/expecience-level.enum'
 import { WorkModel } from '../enum/work-model.enum'
 
@@ -26,6 +26,6 @@ export class UpdateJobInput {
   @Field(_type => Int)
   openings: number
 
-  // @Field(_type => [Skill])
-  // skills: Skill[]
+  @Field(_type => [String])
+  skills: string[]
 }
