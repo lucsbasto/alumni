@@ -52,11 +52,11 @@ export class JobService {
   }
 
   async findApplicants (id: string): Promise<Job | null> {
-    return this.repository.findOne({ where: { id }, relations: ['company', 'graduates', 'skills'] })
+    return this.repository.findOne({ where: { id }, relations: { company: { address: true, user: true }, skills: true, graduates: { user: { address: true } } } })
   }
 
   async apply (input: ApplyForJobInput): Promise<Job | null> {
-    const job = await this.repository.findOne({ where: { id: input.jobId }, relations: ['graduates'] })
+    const job = await this.repository.findOne({ where: { id: input.jobId }, relations: { graduates: { user: { address: { city: { state: { country: true } } } } } } })
     if (!job) {
       throw new NotFoundException('Job not found or already closed')
     }

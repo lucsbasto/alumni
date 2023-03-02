@@ -17,5 +17,6 @@ export class MainSeeder implements Seeder {
     await runSeeder(dataSource, CompanySeeder)
     await runSeeder(dataSource, GraduateSeeder)
     await runSeeder(dataSource, JobSeeder)
+    await runSeeder(dataSource, GraduateSeeder)
   }
 }
