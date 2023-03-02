@@ -1,5 +1,6 @@
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { CreateGraduateInput } from './dto/create-graduate.input'
+import { FilterGraduateInput } from './dto/filter-graduate.input'
 import { UpdateGraduateInput } from './dto/update-graduate.input'
 import { Graduate } from './entities/graduate.entity'
 import { GraduateService } from './graduate.service'
@@ -9,8 +10,8 @@ export class GraduateResolver {
   constructor (private readonly graduateService: GraduateService) {}
 
   @Query(() => [Graduate], { name: 'findAllGraduate' })
-  async list (): Promise<Graduate[]> {
-    return this.graduateService.findAll()
+  async list (@Args('filterGraduateInput') filterGraduateInput: FilterGraduateInput): Promise<Graduate[]> {
+    return this.graduateService.findAll(filterGraduateInput)
   }
 
   @Mutation(() => Graduate, { name: 'createGraduate' })

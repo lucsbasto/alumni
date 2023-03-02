@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm'
 import { Seeder, SeederFactoryManager } from 'typeorm-extension'
-import { Address, City, Graduate, User } from './entities'
+import { Address, City, Course, Graduate, User } from './entities'
 
 export class GraduateSeeder implements Seeder {
   public async run (
@@ -11,6 +11,7 @@ export class GraduateSeeder implements Seeder {
     const addressRepository = dataSource.getRepository(Address)
     const graduateRepository = dataSource.getRepository(Graduate)
     const userRepository = dataSource.getRepository(User)
+    const courseRepository = dataSource.getRepository(Course)
 
     const addressFactory = factoryManager.get(Address)
     const usersFactory = factoryManager.get(User)
@@ -18,6 +19,7 @@ export class GraduateSeeder implements Seeder {
     const city = (await cityRepository.find({})).at(0)
     const address = await addressRepository.save(await addressFactory.make({ city }))
     const user = await userRepository.save(await usersFactory.make({ address }))
-    await graduateRepository.save(await graduateFactory.make({ user }))
+    const courses = await courseRepository.find({})
+    await graduateRepository.save(await graduateFactory.make({ user, courses }))
   }
 }

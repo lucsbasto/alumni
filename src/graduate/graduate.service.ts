@@ -1,24 +1,19 @@
 import { Injectable } from '@nestjs/common'
 import { InternalServerErrorException, NotFoundException } from '@nestjs/common/exceptions'
-import { InjectRepository } from '@nestjs/typeorm'
 import { In } from 'typeorm'
-import { Course } from '~/course/entities/course.entity'
 import { CourseRepository } from '~/course/course.repository'
-import { User } from '~/user/entities/user.entity'
 import { UserRepository } from '~/user/user.repository'
 import { CreateGraduateInput } from './dto/create-graduate.input'
 import { UpdateGraduateInput } from './dto/update-graduate.input'
 import { Graduate } from './entities/graduate.entity'
 import { GraduateRepository } from './graduate.repository'
+import { FilterGraduateInput } from './dto/filter-graduate.input'
 
 @Injectable()
 export class GraduateService {
   constructor (
-    @InjectRepository(Graduate)
     private readonly repository: GraduateRepository,
-    @InjectRepository(User)
     private readonly userRepository: UserRepository,
-    @InjectRepository(Course)
     private readonly courseRepository: CourseRepository
   ) {}
 
@@ -31,8 +26,8 @@ export class GraduateService {
     return this.repository.save({ ...input, user })
   }
 
-  async findAll (): Promise<Graduate[]> {
-    return this.repository.find({ relations: ['user', 'courses', 'jobs'] })
+  async findAll (filter: FilterGraduateInput): Promise<Graduate[]> {
+    return this.repository.findByFilter(filter)
   }
 
   async update (input: UpdateGraduateInput): Promise<Graduate | null> {
@@ -45,7 +40,6 @@ export class GraduateService {
       throw new NotFoundException('course not found')
     }
     graduate.courses = courses
-    console.log(graduate)
     await this.repository.save(graduate)
     return graduate
   }
