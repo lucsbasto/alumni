@@ -46,10 +46,10 @@ export class InitialSeeder implements Seeder {
       id: '7d294a2f-d1e4-4528-b3b4-df1236adca48',
       address: home,
       birthdate: new Date('06/05/1995'),
-      email: 'lucsbasto@gmail.com',
+      email: 'admin@gmail.com',
       isAdmin: true,
-      firstName: 'Lucas',
-      lastName: 'Bastos',
+      firstName: 'Admin',
+      lastName: 'Admin',
       phone: '+5563985021531',
       password: '123456789'
     })

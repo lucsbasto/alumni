@@ -12,7 +12,7 @@ export class Graduate {
   id: string
 
   @Field(_type => User)
-  @OneToOne(_type => User)
+  @OneToOne(_type => User, { cascade: true })
   @JoinColumn({ name: 'userId' })
   user: User
 
@@ -25,8 +25,8 @@ export class Graduate {
   endGraduation: string
 
   @Field(_type => [Course])
-  @ManyToMany(_type => Course, course => course.graduates)
-  @JoinTable({ name: 'graduate_course' })
+  @ManyToMany(_type => Course, course => course.graduates, { eager: true })
+  @JoinTable({ name: 'graduate_courses' })
   courses: Course[]
 
   @Field(_type => [Job])

@@ -1,5 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql'
 import { IsDate } from 'class-validator'
+import { CreateAddressInput } from '~/address/dto/create-address.input'
 
 @InputType()
 export class CreateUserInput {
@@ -15,15 +16,15 @@ export class CreateUserInput {
   @Field()
   password: string
 
-  @Field()
+  @Field(_type => Date)
   @IsDate()
-  birthdate: string
+  birthdate: Date
 
   @Field()
   phone: string
 
-  @Field()
-  addressId: string
+  @Field(_type => CreateAddressInput)
+  address: CreateAddressInput
 
   @Field()
   isAdmin: boolean

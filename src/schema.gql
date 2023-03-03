@@ -53,9 +53,10 @@ scalar DateTime
 type Company {
   id: String!
   cnpj: String!
+  name: String!
   user: User!
   address: Address!
-  jobs: Job!
+  jobs: [Job!]!
 }
 
 type College {
@@ -132,6 +133,7 @@ type Query {
   findAllAddress: [Address!]!
   findAllCity: [City!]!
   findAllCollege: [College!]!
+  findAllCompany: [Company!]!
   findAllGraduate(filterGraduateInput: FilterGraduateInput!): [Graduate!]!
   findAllCourse: [Course!]!
   findAllState: [State!]!
@@ -149,6 +151,7 @@ input FilterGraduateInput {
   stateId: String
   cityId: String
   skillsId: [String!]
+  skillLevel: SkillLevel
 }
 
 type Mutation {
@@ -161,9 +164,12 @@ type Mutation {
   createCollege(createCollegeInput: CreateCollegeInput!): College!
   updateCollege(updateCollegeInput: UpdateCollegeInput!): College!
   deleteCollege(id: String!): College!
+  createCompany(createCompanyInput: CreateCompanyInput!): Company!
+  updateCompany(updateCompanyInput: UpdateCompanyInput!): Company!
+  deleteCompany(id: String!): Company!
   createGraduate(createGraduateInput: CreateGraduateInput!): Graduate!
   updateGraduate(updateGraduateInput: UpdateGraduateInput!): Graduate!
-  deleteGraduate(id: Int!): Graduate!
+  deleteGraduate(id: String!): Graduate!
   createCourse(createCourseInput: CreateCourseInput!): Course!
   updateCourse(updateCourseInput: UpdateCourseInput!): Course!
   deleteCourse(id: String!): Course!
@@ -230,11 +236,11 @@ input UpdateCollegeInput {
   coursesId: [String!]!
 }
 
-input CreateGraduateInput {
+input CreateCompanyInput {
   user: CreateUserInput!
-  startGraduation: String!
-  endGraduation: String!
-  courseId: [String!]!
+  address: CreateAddressInput!
+  cnpj: String!
+  name: String!
 }
 
 input CreateUserInput {
@@ -242,10 +248,37 @@ input CreateUserInput {
   lastName: String!
   email: String!
   password: String!
+  birthdate: DateTime!
+  phone: String!
+  address: CreateAddressInput!
+  isAdmin: Boolean!
+}
+
+input UpdateCompanyInput {
+  id: String!
+  cnpj: String
+  name: String
+  address: UpdateAddressInput
+  user: UpdateUserInput
+}
+
+input UpdateUserInput {
+  id: String!
+  firstName: String!
+  lastName: String!
+  email: String!
   birthdate: String!
+  password: String!
   phone: String!
   addressId: String!
   isAdmin: Boolean!
+}
+
+input CreateGraduateInput {
+  user: CreateUserInput!
+  startGraduation: String!
+  endGraduation: String!
+  courseId: [String!]!
 }
 
 input UpdateGraduateInput {
@@ -280,18 +313,6 @@ input UpdateStateInput {
   name: String!
   UF: String!
   countryId: String!
-}
-
-input UpdateUserInput {
-  id: String!
-  firstName: String!
-  lastName: String!
-  email: String!
-  birthdate: String!
-  password: String!
-  phone: String!
-  addressId: String!
-  isAdmin: Boolean!
 }
 
 input CreateCountryInput {

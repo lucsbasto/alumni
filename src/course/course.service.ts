@@ -22,7 +22,6 @@ export class CourseService {
   }
 
   async findAll (): Promise<Course[]> {
-    console.log(await this.repository.find({ relations: ['college'] }))
     return this.repository.find({ relations: ['college'] })
   }
 

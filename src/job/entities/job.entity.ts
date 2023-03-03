@@ -42,7 +42,7 @@ export class Job {
   company: Company
 
   @Field(_type => [Skill])
-  @ManyToMany(_type => Skill, skill => skill.jobs)
+  @ManyToMany(_type => Skill, skill => skill.jobs, { eager: true })
   @JoinTable({ name: 'job_skills' })
   skills: Skill[]
 

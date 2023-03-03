@@ -16,7 +16,7 @@ export class City {
   name: string
 
   @Field(_type => State)
-  @OneToOne(_type => State, _city => City)
+  @OneToOne(_type => State, _city => City, { cascade: true })
   @JoinColumn({ name: 'stateId' })
   state: State
 

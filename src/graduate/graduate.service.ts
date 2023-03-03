@@ -27,7 +27,7 @@ export class GraduateService {
   }
 
   async findAll (filter: FilterGraduateInput): Promise<Graduate[]> {
-    return this.repository.findByFilter(filter)
+    return this.repository.findManyByFilter(filter)
   }
 
   async update (input: UpdateGraduateInput): Promise<Graduate | null> {

@@ -12,11 +12,11 @@ export class State {
   @Column({ length: 2 })
   UF: string
 
-  @OneToOne(_type => Country, _state => State)
+  @OneToOne(_type => Country, _state => State, { cascade: true })
   @JoinColumn({ name: 'countryId' })
   country: Country
 
-  @OneToOne(_type => City, _state => State)
+  @OneToOne(_type => City, _state => State, { cascade: true })
   city: City
 
   @CreateDateColumn({ name: 'created_date' })

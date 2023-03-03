@@ -1,4 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
+import { SkillLevel } from '~/skill/enum/skill-level.enum'
 
 @InputType()
 export class FilterGraduateInput {
@@ -25,4 +26,7 @@ export class FilterGraduateInput {
 
   @Field(_type => [String], { nullable: true })
   skillsId: string[]
+
+  @Field(_type => SkillLevel, { nullable: true })
+  skillLevel: SkillLevel
 }

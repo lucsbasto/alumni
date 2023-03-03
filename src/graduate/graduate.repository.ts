@@ -9,7 +9,7 @@ export class GraduateRepository extends Repository<Graduate> {
       super(Graduate, dataSource.createEntityManager())
   }
 
-  async findByFilter (filter: FilterGraduateInput): Promise<Graduate[]> {
+  async findManyByFilter (filter: FilterGraduateInput): Promise<Graduate[]> {
     const query = this.createQueryBuilder('graduate')
     .leftJoinAndSelect('graduate.user', 'user')
     .leftJoinAndSelect('user.address', 'address')
@@ -18,9 +18,30 @@ export class GraduateRepository extends Repository<Graduate> {
     .leftJoinAndSelect('state.country', 'country')
     .leftJoinAndSelect('graduate.courses', 'course')
     .leftJoinAndSelect('graduate.jobs', 'jobs')
-    .leftJoinAndSelect('jobs.skills', 'skills')
+    .leftJoinAndSelect('course.skills', 'skills')
+    if (filter.courseId) {
+      query.where('course.id = :courseId', { courseId: filter.courseId })
+    }
+    if (filter.startGraduation) {
+      query.where('graduate.startGraduation = :startGraduation', { startGraduation: filter.startGraduation })
+    }
+    if (filter.endGraduation) {
+      query.where('graduate.endGraduation = :endGraduation', { endGraduation: filter.endGraduation })
+    }
     if (filter.cityId) {
       query.where('city.id = :cityId', { cityId: filter.cityId })
+    }
+    if (filter.stateId) {
+      query.where('state.id = :stateId', { stateId: filter.stateId })
+    }
+    if (filter.countryId) {
+      query.where('country.id = :countryId', { countryId: filter.countryId })
+    }
+    if (filter.skillsId) {
+      query.where('skills.id IN (:...skillsId)', { skillsId: filter.skillsId })
+      if (filter.skillLevel) {
+        query.andWhere('skills.level = :skillLevel', { skillLevel: filter.skillLevel })
+      }
     }
     const teste = await query.getMany()
     return teste

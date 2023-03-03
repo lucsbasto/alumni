@@ -10,7 +10,7 @@ export class Graduate {
   id: string
 
   @Field(_type => User)
-  @OneToOne(_type => User)
+  @OneToOne(_type => User, { cascade: true })
   @JoinColumn({ name: 'userId' })
   user: User
 

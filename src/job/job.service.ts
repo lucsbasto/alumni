@@ -15,11 +15,8 @@ import { ApplyForJobInput } from './dto/apply-for-job.input'
 @Injectable()
 export class JobService {
   constructor (
-    @InjectRepository(Job)
     private readonly repository: JobRepository,
-    @InjectRepository(Graduate)
     private readonly graduateRepository: GraduateRepository,
-    @InjectRepository(Skill)
     private readonly skillRepository: SkillRepository
   ) {}
 
@@ -33,7 +30,7 @@ export class JobService {
   }
 
   async findAll (): Promise<Job[]> {
-    return this.repository.find({ relations: ['company', 'graduates', 'skills'] })
+    return this.repository.findManyAndRelated()
   }
 
   async update (input: UpdateJobInput): Promise<Job | null> {
@@ -52,11 +49,11 @@ export class JobService {
   }
 
   async findApplicants (id: string): Promise<Job | null> {
-    return this.repository.findOne({ where: { id }, relations: { company: { address: true, user: true }, skills: true, graduates: { user: { address: true } } } })
+    return this.repository.findOneAndRelated(id)
   }
 
   async apply (input: ApplyForJobInput): Promise<Job | null> {
-    const job = await this.repository.findOne({ where: { id: input.jobId }, relations: { graduates: { user: { address: { city: { state: { country: true } } } } } } })
+    const job = await this.repository.findOne({ where: { id: input.jobId } })
     if (!job) {
       throw new NotFoundException('Job not found or already closed')
     }
@@ -66,6 +63,6 @@ export class JobService {
     }
     job.graduates.push(graduate)
     await this.repository.save(job)
-    return job
+    return this.repository.findOneAndRelated(input.jobId)
   }
 }

@@ -27,7 +27,7 @@ export class User {
   @Column()
   birthdate: Date
 
-  @OneToOne(_type => Address)
+  @OneToOne(_type => Address, { cascade: true })
   @JoinColumn({ name: 'addressId' })
   address: Address
 

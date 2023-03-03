@@ -6,7 +6,7 @@ import { CreateUserInput } from './dto/create-user.input'
 import { UpdateUserInput } from './dto/update-user.input'
 import { User } from './entities/user.entity'
 import { UserRepository } from './user.repository'
-import { NotFoundException } from '@nestjs/common/exceptions'
+import { InternalServerErrorException } from '@nestjs/common/exceptions'
 
 @Injectable()
 export class UserService {
@@ -18,9 +18,9 @@ export class UserService {
   ) {}
 
   async create (input: CreateUserInput): Promise<User> {
-    const address = await this.addressRepository.findOneBy({ id: input.addressId })
+    const address = await this.addressRepository.create(input.address)
     if (!address) {
-      throw new NotFoundException('Address not found')
+      throw new InternalServerErrorException('Address not created')
     }
     return this.repository.save({ ...input, birthdate: new Date(input.birthdate), address })
   }
@@ -29,9 +29,9 @@ export class UserService {
     return this.repository.find({ relations: ['address'] })
   }
 
-  async update (_input: UpdateUserInput): Promise<User | null> {
-    await this.repository.update({ id: _input.id }, { ..._input })
-    return this.repository.findOneBy({ id: _input.id })
+  async update (input: UpdateUserInput): Promise<User | null> {
+    await this.repository.update({ id: input.id }, { ...input })
+    return this.repository.findOneBy({ id: input.id })
   }
 
   async delete (id: string): Promise<void> {

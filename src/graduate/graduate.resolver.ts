@@ -25,7 +25,7 @@ export class GraduateResolver {
   }
 
   @Mutation(() => Graduate, { name: 'deleteGraduate' })
-  async delete (@Args('id', { type: () => Int }) id: string): Promise<void> {
+  async delete (@Args('id') id: string): Promise<void> {
     return this.graduateService.delete(id)
   }
 }
