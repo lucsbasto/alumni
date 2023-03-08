@@ -28,9 +28,9 @@ export class StateService {
     return this.repository.findAllAndRelated()
   }
 
-  async update (_input: UpdateStateInput): Promise<State | null> {
-    await this.repository.update({ id: _input.id }, { ..._input })
-    return this.repository.findOneBy({ id: _input.id })
+  async update (input: UpdateStateInput): Promise<State | null> {
+    await this.repository.update({ id: input.id }, { ...input })
+    return this.repository.findOne({ where: { id: input.id } })
   }
 
   async delete (id: string): Promise<void> {
