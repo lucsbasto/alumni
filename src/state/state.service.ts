@@ -25,9 +25,7 @@ export class StateService {
   }
 
   async findAll (): Promise<State[]> {
-    return this.repository.find({
-      relations: ['country']
-    })
+    return this.repository.findAllAndRelated()
   }
 
   async update (_input: UpdateStateInput): Promise<State | null> {
