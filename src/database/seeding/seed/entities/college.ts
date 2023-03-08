@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, Index, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Address, Course, User } from '../entities'
 
 @Entity()
@@ -11,12 +11,10 @@ export class College {
   user: User
 
   @Column()
-  @Index({ unique: true })
   name: string
 
   @OneToOne(_type => Address, { cascade: true })
   @JoinColumn({ name: 'addressId' })
-  @Index({ unique: true })
   address: Address
 
   @OneToMany(_type => Course, course => course.college, { nullable: true })

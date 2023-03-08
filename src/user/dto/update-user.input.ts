@@ -3,31 +3,31 @@ import { IsDate } from 'class-validator'
 
 @InputType()
 export class UpdateUserInput {
-  @Field()
+  @Field({ nullable: true })
   id: string
 
-  @Field()
+  @Field({ nullable: true })
   firstName: string
 
-  @Field()
+  @Field({ nullable: true })
   lastName: string
 
-  @Field()
+  @Field({ nullable: true })
   email: string
 
-  @Field()
+  @Field({ nullable: true })
   @IsDate()
   birthdate: string
 
-  @Field()
+  @Field({ nullable: true })
   password: string
 
-  @Field()
+  @Field({ nullable: true })
   phone: string
 
-  @Field()
+  @Field({ nullable: true })
   addressId: string
 
-  @Field()
+  @Field({ nullable: true })
   isAdmin: boolean
 }

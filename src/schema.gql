@@ -6,7 +6,7 @@ type Country {
   id: String!
   name: String!
   code: String!
-  state: [State!]
+  states: [State!]
 }
 
 type State {
@@ -14,7 +14,7 @@ type State {
   name: String!
   UF: String!
   country: Country!
-  city: City!
+  cities: [City!]!
 }
 
 type City {
@@ -50,15 +50,6 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type Company {
-  id: String!
-  cnpj: String!
-  name: String!
-  user: User!
-  address: Address!
-  jobs: [Job!]!
-}
-
 type College {
   id: String!
   user: User!
@@ -67,14 +58,13 @@ type College {
   courses: [Course!]
 }
 
-type Course {
+type Company {
   id: String!
+  cnpj: String!
   name: String!
-  degree: String!
-  description: String!
-  college: College!
-  skills: [Skill!]
-  graduates: [Graduate!]!
+  user: User!
+  address: Address!
+  jobs: [Job!]!
 }
 
 type Skill {
@@ -131,10 +121,21 @@ type Graduate {
   jobs: [Job!]!
 }
 
+type Course {
+  id: String!
+  name: String!
+  degree: String!
+  description: String!
+  college: College!
+  skills: [Skill!]
+  graduates: [Graduate!]!
+}
+
 type Query {
   findAllAddress: [Address!]!
   findAllCity: [City!]!
   findAllCollege: [College!]!
+  findCollegeByName(name: String!): College!
   findAllCompany: [Company!]!
   findAllGraduate(filterGraduateInput: FilterGraduateInput!): [Graduate!]!
   findAllCourse: [Course!]!
@@ -270,15 +271,15 @@ input UpdateCompanyInput {
 }
 
 input UpdateUserInput {
-  id: String!
-  firstName: String!
-  lastName: String!
-  email: String!
-  birthdate: String!
-  password: String!
-  phone: String!
-  addressId: String!
-  isAdmin: Boolean!
+  id: String
+  firstName: String
+  lastName: String
+  email: String
+  birthdate: String
+  password: String
+  phone: String
+  addressId: String
+  isAdmin: Boolean
 }
 
 input CreateGraduateInput {
@@ -289,10 +290,11 @@ input CreateGraduateInput {
 }
 
 input UpdateGraduateInput {
-  id: String!
-  startGraduation: String!
-  endGraduation: String!
-  courseId: [String!]!
+  id: String
+  startGraduation: String
+  endGraduation: String
+  courseId: [String!]
+  user: UpdateUserInput
 }
 
 input CreateCourseInput {

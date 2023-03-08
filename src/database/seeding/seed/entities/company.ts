@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, Index, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Job, User, Address } from '.'
 
 @Entity()
@@ -25,7 +25,6 @@ export class Company {
   @Field(_type => Address)
   @OneToOne(_type => Address, { cascade: true })
   @JoinColumn({ name: 'addressId' })
-  @Index({ unique: true })
   address: Address
 
   @Field(_type => Job)

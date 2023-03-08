@@ -7,6 +7,6 @@ import { CityRepository } from '~/city/city.repository'
 
 @Module({
   imports: [TypeOrmModule.forFeature([AddressRepository, CityRepository])],
-  providers: [AddressService, AddressResolver, AddressRepository]
+  providers: [AddressService, AddressResolver, AddressRepository, CityRepository]
 })
 export class AddressModule {}

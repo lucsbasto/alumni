@@ -1,8 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
 import { AddressRepository } from '~/address/address.repository'
-import { Address } from '~/address/entities/address.entity'
-import { User } from '~/user/entities/user.entity'
 import { UserRepository } from '~/user/user.repository'
 import { CollegeRepository } from './college.repository'
 import { CreateCollegeInput } from './dto/create-college.input'
@@ -12,11 +9,8 @@ import { College } from './entities/college.entity'
 @Injectable()
 export class CollegeService {
   constructor (
-    @InjectRepository(College)
     private readonly repository: CollegeRepository,
-    @InjectRepository(User)
     private readonly userRepository: UserRepository,
-    @InjectRepository(Address)
     private readonly addressRepository: AddressRepository
   ) {}
 
@@ -34,6 +28,10 @@ export class CollegeService {
 
   async findAll (): Promise<College[]> {
     return this.repository.find({ relations: ['user', 'address'] })
+  }
+
+  async findByName (name: string): Promise<College | null> {
+    return this.repository.findByName(name)
   }
 
   async update (_input: UpdateCollegeInput): Promise<College | null> {

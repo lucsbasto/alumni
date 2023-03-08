@@ -13,6 +13,11 @@ export class CollegeResolver {
     return this.service.findAll()
   }
 
+  @Query(() => College, { name: 'findCollegeByName' })
+  async findByName (@Args('name') name: string): Promise<College | null> {
+    return this.service.findByName(name)
+  }
+
   @Mutation(() => College, { name: 'createCollege' })
   async create (@Args('createCollegeInput') createCollegeInput: CreateCollegeInput): Promise<College> {
     return this.service.create(createCollegeInput)

@@ -10,6 +10,6 @@ import { SkillRepository } from '~/skill/skill.repository'
 
 @Module({
   imports: [TypeOrmModule.forFeature([GraduateRepository, UserRepository, CourseRepository, JobRepository, SkillRepository])],
-  providers: [GraduateService, GraduateResolver, GraduateRepository]
+  providers: [GraduateService, GraduateResolver, GraduateRepository, UserRepository, CourseRepository, JobRepository, SkillRepository]
 })
 export class GraduateModule {}

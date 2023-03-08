@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
 import { CountryRepository } from './country.repository'
 import { CreateCountryInput } from './dto/create-country.input'
 import { UpdateCountryInput } from './dto/update-country.input'
@@ -8,7 +7,6 @@ import { Country } from './entities/country.entity'
 @Injectable()
 export class CountryService {
   constructor (
-    @InjectRepository(Country)
     private readonly repository: CountryRepository
   ) {}
 

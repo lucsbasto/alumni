@@ -14,7 +14,7 @@ export class AddressService {
   ) {}
 
   async create (input: CreateAddressInput): Promise<Address> {
-    const city = await this.cityRepository.findOneBy({ id: input.cityId })
+    const city = await this.cityRepository.findOne({ where: { id: input.cityId } })
     if (!city) {
       throw new NotFoundException('City not found')
     }

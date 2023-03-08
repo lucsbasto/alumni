@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common'
 import { NotFoundException } from '@nestjs/common/exceptions'
-import { InjectRepository } from '@nestjs/typeorm'
-import { State } from '~/state/entities/state.entity'
 import { StateRepository } from '~/state/state.repository'
 import { CityRepository } from './city.repository'
 import { CreateCityInput } from './dto/create-city.input'
@@ -11,9 +9,7 @@ import { City } from './entities/city.entity'
 @Injectable()
 export class CityService {
   constructor (
-    @InjectRepository(City)
     private readonly repository: CityRepository,
-    @InjectRepository(State)
     private readonly stateRepository: StateRepository
   ) {}
 

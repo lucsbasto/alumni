@@ -37,13 +37,29 @@ export class GraduateService {
     if (!graduate) {
       throw new NotFoundException('Graduate not found')
     }
-    const courses = await this.courseRepository.findBy({ id: In(input.courseId) })
-    if (courses.length === 0) {
-      throw new NotFoundException('course not found')
+    if (input.user) {
+      const user = await this.userRepository.findOne({ where: { id: input.user.id } })
+      if (user) {
+        user.birthdate = input.user.birthdate ? new Date(input.user.birthdate) : user.birthdate
+        user.firstName = input.user.firstName ?? user.firstName
+        user.lastName = input.user.lastName ?? user.lastName
+        user.email = input.user.email ?? user.email
+        user.password = input.user.password ?? user.password
+        user.phone = input.user.phone ?? user.phone
+        console.log(user)
+        await this.userRepository.save(user)
+      }
     }
-    graduate.courses = courses
+    if (!graduate) {
+      throw new NotFoundException('Graduate not found')
+    }
+
+    if (input.courseId) {
+      const courses = await this.courseRepository.find({ where: { id: In(input.courseId) } })
+      graduate.courses = courses ?? graduate.courses
+    }
     await this.repository.save(graduate)
-    return graduate
+    return this.repository.findOneAndRelated(graduate.id)
   }
 
   async delete (id: string): Promise<void> {
