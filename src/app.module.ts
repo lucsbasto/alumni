@@ -25,6 +25,7 @@ import { Skill } from './skill/entities/skill.entity'
 import { State } from './state/entities/state.entity'
 import { User } from './user/entities/user.entity'
 import { Company } from './company/entities/company.entity'
+import { SkillModule } from './skill/skill.module'
 
 @Module({
   imports: [
@@ -57,7 +58,8 @@ import { Company } from './company/entities/company.entity'
     StateModule,
     UserModule,
     CountryModule,
-    JobModule
+    JobModule,
+    SkillModule
 ],
   controllers: [],
   providers: []

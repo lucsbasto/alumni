@@ -6,7 +6,7 @@ import { Job } from './entities/job.entity'
 export class JobRepository extends Repository<Job> {
   constructor (private dataSource: DataSource) {
     super(Job, dataSource.createEntityManager())
-}
+  }
 
   async findOneAndRelated (id: string): Promise<Job | null> {
     return this.createQueryBuilder('job')

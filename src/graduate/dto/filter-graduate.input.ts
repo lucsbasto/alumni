@@ -16,6 +16,9 @@ export class FilterGraduateInput {
   courseId: string
 
   @Field({ nullable: true })
+  graduateId: string
+
+  @Field({ nullable: true })
   countryId: string
 
   @Field({ nullable: true })

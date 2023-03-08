@@ -8,13 +8,15 @@ import { UpdateGraduateInput } from './dto/update-graduate.input'
 import { Graduate } from './entities/graduate.entity'
 import { GraduateRepository } from './graduate.repository'
 import { FilterGraduateInput } from './dto/filter-graduate.input'
+import { SkillRepository } from '~/skill/skill.repository'
 
 @Injectable()
 export class GraduateService {
   constructor (
     private readonly repository: GraduateRepository,
     private readonly userRepository: UserRepository,
-    private readonly courseRepository: CourseRepository
+    private readonly courseRepository: CourseRepository,
+    private readonly skillRepository: SkillRepository
   ) {}
 
   async create (input: CreateGraduateInput): Promise<Graduate> {
@@ -46,5 +48,20 @@ export class GraduateService {
 
   async delete (id: string): Promise<void> {
     await this.repository.update({ id }, { deletedDate: new Date() })
+  }
+
+  async upgradeSkillLevel (input: { graduateId: string, skillId: string }): Promise<Graduate | null> {
+    const graduate = await this.repository.findOne({ where: { id: input.graduateId } })
+    if (!graduate) {
+      throw new NotFoundException('Graduate not found')
+    }
+
+    const skill = await this.skillRepository.findOne({ where: { id: input.skillId } })
+    if (!skill) {
+      throw new NotFoundException('Skill not found')
+    }
+    graduate.skills.push(skill)
+    await this.repository.save(graduate)
+    return this.repository.findOneAndRelated(graduate.id)
   }
 }

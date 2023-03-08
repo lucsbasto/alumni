@@ -24,7 +24,7 @@ export class CourseResolver {
   }
 
   @Mutation(() => Course, { name: 'deleteCourse' })
-  async delete (@Args('id', { type: () => String }) id: string): Promise<void> {
+  async delete (@Args('id', { type: () => String }) id: string): Promise<Course | null> {
     return this.service.delete(id)
   }
 }

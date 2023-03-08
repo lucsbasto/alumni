@@ -19,6 +19,9 @@ export class GraduateRepository extends Repository<Graduate> {
     .leftJoinAndSelect('graduate.courses', 'course')
     .leftJoinAndSelect('graduate.jobs', 'jobs')
     .leftJoinAndSelect('course.skills', 'skills')
+    if (filter.graduateId) {
+      query.where('graduate.id = :graduateId', { graduateId: filter.graduateId })
+    }
     if (filter.courseId) {
       query.where('course.id = :courseId', { courseId: filter.courseId })
     }
@@ -45,5 +48,19 @@ export class GraduateRepository extends Repository<Graduate> {
     }
     const teste = await query.getMany()
     return teste
+  }
+
+  async findOneAndRelated (id: string): Promise<Graduate | null> {
+    return this.createQueryBuilder('graduate')
+    .leftJoinAndSelect('graduate.user', 'user')
+    .leftJoinAndSelect('user.address', 'address')
+    .leftJoinAndSelect('address.city', 'city')
+    .leftJoinAndSelect('city.state', 'state')
+    .leftJoinAndSelect('state.country', 'country')
+    .leftJoinAndSelect('graduate.courses', 'course')
+    .leftJoinAndSelect('graduate.jobs', 'jobs')
+    .leftJoinAndSelect('course.skills', 'skills')
+    .where('graduate.id = :id', { id })
+    .getOne()
   }
 }

@@ -42,7 +42,8 @@ export class CourseService {
     return course
   }
 
-  async delete (id: string): Promise<void> {
+  async delete (id: string): Promise<Course | null> {
     await this.repository.update({ id }, { deletedDate: new Date() })
+    return this.repository.findOne({ where: { id } })
   }
 }

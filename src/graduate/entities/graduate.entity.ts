@@ -3,6 +3,7 @@ import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, JoinTab
 import { Job } from '~/job/entities/job.entity'
 import { Course } from '~/course/entities/course.entity'
 import { User } from '~/user/entities/user.entity'
+import { Skill } from '~/skill/entities/skill.entity'
 
 @Entity()
 @ObjectType()
@@ -28,6 +29,11 @@ export class Graduate {
   @ManyToMany(_type => Course, course => course.graduates, { eager: true })
   @JoinTable({ name: 'graduate_courses' })
   courses: Course[]
+
+  @Field(_type => [Skill])
+  @ManyToMany(_type => Skill, skill => skill.graduates, { eager: true, nullable: true })
+  @JoinTable({ name: 'graduate_skill' })
+  skills: Skill[]
 
   @Field(_type => [Job])
   @ManyToMany(_type => Job, job => job.graduates)

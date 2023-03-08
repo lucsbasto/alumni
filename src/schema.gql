@@ -84,6 +84,7 @@ type Skill {
   level: SkillLevel!
   course: Course!
   jobs: [Job!]!
+  graduates: [Graduate!]!
 }
 
 enum SkillLevel {
@@ -126,6 +127,7 @@ type Graduate {
   startGraduation: String!
   endGraduation: String!
   courses: [Course!]!
+  skills: [Skill!]!
   jobs: [Job!]!
 }
 
@@ -140,6 +142,7 @@ type Query {
   findAllUser: [User!]!
   findAllCountry: [Country!]!
   findAllJob: [Job!]!
+  findAllSkill: [Skill!]!
 }
 
 input FilterGraduateInput {
@@ -147,6 +150,7 @@ input FilterGraduateInput {
   startGraduation: String
   endGraduation: String
   courseId: String
+  graduateId: String
   countryId: String
   stateId: String
   cityId: String
@@ -188,6 +192,9 @@ type Mutation {
   closeJob(id: String!): Job!
   findApplicants(id: String!): Job!
   applyForJob(applyForJobInput: ApplyForJobInput!): Job!
+  createSkill(createSkillInput: CreateSkillInput!): Skill!
+  updateSkill(updateSkillInput: UpdateSkillInput!): Skill!
+  deleteSkill(id: String!): Skill!
 }
 
 input CreateAddressInput {
@@ -349,4 +356,20 @@ input UpdateJobInput {
 input ApplyForJobInput {
   jobId: String!
   graduateId: String!
+}
+
+input CreateSkillInput {
+  name: String
+  degree: String
+  level: SkillLevel!
+  description: String
+}
+
+input UpdateSkillInput {
+  id: String!
+  name: String
+  degree: String
+  level: SkillLevel!
+  description: String
+  collegeId: String
 }

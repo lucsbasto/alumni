@@ -3,6 +3,7 @@ import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToMany, ManyToO
 import { Job } from '~/job/entities/job.entity'
 import { Course } from '~/course/entities/course.entity'
 import { SkillLevel } from '../enum/skill-level.enum'
+import { Graduate } from '~/graduate/entities/graduate.entity'
 
 @Entity()
 @ObjectType()
@@ -30,6 +31,10 @@ export class Skill {
   @Field(_type => [Job])
   @ManyToMany(_type => Job, job => job.skills)
   jobs: Job[]
+
+  @Field(_type => [Graduate])
+  @ManyToMany(_type => Graduate, graduate => graduate.skills, { nullable: true })
+  graduates: Graduate[]
 
   @CreateDateColumn({ name: 'created_date' })
   createdDate: Date

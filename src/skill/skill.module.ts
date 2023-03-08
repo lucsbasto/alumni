@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common'
 import { SkillService } from './skill.service'
 import { SkillResolver } from './skill.resolver'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { Skill } from './entities/skill.entity'
+import { SkillRepository } from './skill.repository'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Skill])],
-  providers: [SkillService, SkillResolver]
+  imports: [TypeOrmModule.forFeature([SkillRepository])],
+  providers: [SkillService, SkillResolver, SkillRepository]
 })
 export class SkillModule {}
