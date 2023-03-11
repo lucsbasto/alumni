@@ -46,7 +46,6 @@ export class GraduateService {
         user.email = input.user.email ?? user.email
         user.password = input.user.password ?? user.password
         user.phone = input.user.phone ?? user.phone
-        console.log(user)
         await this.userRepository.save(user)
       }
     }

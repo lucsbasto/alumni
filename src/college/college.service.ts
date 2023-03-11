@@ -27,11 +27,15 @@ export class CollegeService {
   }
 
   async findAll (): Promise<College[]> {
-    return this.repository.find({ relations: ['user', 'address'] })
+    return this.repository.findAllAndRelated()
   }
 
   async findByName (name: string): Promise<College | null> {
     return this.repository.findByName(name)
+  }
+
+  async findOne (id: string): Promise<College | null> {
+    return this.repository.findOneAndRelated(id)
   }
 
   async update (_input: UpdateCollegeInput): Promise<College | null> {

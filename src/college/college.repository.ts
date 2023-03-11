@@ -9,7 +9,6 @@ export class CollegeRepository extends Repository<College> {
   }
 
   async findByName (name: string): Promise<College | null> {
-    console.log({ name })
     return this.createQueryBuilder('college')
     .leftJoinAndSelect('college.user', 'user')
     .leftJoinAndSelect('user.address', 'address')
@@ -26,5 +25,36 @@ export class CollegeRepository extends Repository<College> {
     .leftJoinAndSelect('courses.skills', 'skills')
     .where('college.name ILIKE :name', { name: `%${name}%` })
     .getOne()
+  }
+
+  async findOneAndRelated (id: string): Promise<College | null> {
+    return this.findOne({
+      where: { id },
+      relations: {
+        address: { city: { state: { country: true } } },
+        user: { address: { city: { state: { country: true } } } },
+        courses: {
+          skills: true,
+          graduates: {
+            user: { address: { city: { state: { country: true } } } }
+          }
+         }
+      }
+    })
+  }
+
+  async findAllAndRelated (): Promise<College[]> {
+    return this.find({
+      relations: {
+        address: { city: { state: { country: true } } },
+        user: { address: { city: { state: { country: true } } } },
+        courses: {
+          skills: true,
+          graduates: {
+            user: { address: { city: { state: { country: true } } } }
+          }
+         }
+      }
+    })
   }
 }

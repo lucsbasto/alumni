@@ -5,7 +5,7 @@ import { College, Graduate, Skill } from '.'
 @Entity()
 @ObjectType()
 
-@Index(['name', 'degree', 'description'], { unique: true })
+@Index(['name', 'degree', 'description', 'college'], { unique: true })
 export class Course {
   @Field()
   @PrimaryGeneratedColumn('uuid')

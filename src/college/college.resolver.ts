@@ -13,6 +13,11 @@ export class CollegeResolver {
     return this.service.findAll()
   }
 
+  @Query(() => College, { name: 'findCollegeById' })
+  async findOne (@Args('id') id: string): Promise<College | null> {
+    return this.service.findOne(id)
+  }
+
   @Query(() => College, { name: 'findCollegeByName' })
   async findByName (@Args('name') name: string): Promise<College | null> {
     return this.service.findByName(name)

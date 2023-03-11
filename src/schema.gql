@@ -135,6 +135,7 @@ type Query {
   findAllAddress: [Address!]!
   findAllCity: [City!]!
   findAllCollege: [College!]!
+  findCollegeById(id: String!): College!
   findCollegeByName(name: String!): College!
   findAllCompany: [Company!]!
   findAllGraduate(filterGraduateInput: FilterGraduateInput!): [Graduate!]!

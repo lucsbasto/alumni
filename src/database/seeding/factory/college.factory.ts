@@ -1,6 +1,6 @@
 import { Faker } from '@faker-js/faker'
 import { setSeederFactory } from 'typeorm-extension'
-import { Address, College, User } from '../seed/entities'
+import { Address, College, Course, User } from '../seed/entities'
 
 export const collegeFactory = setSeederFactory(College, (faker: Faker) => {
   const college = new College()
@@ -8,5 +8,6 @@ export const collegeFactory = setSeederFactory(College, (faker: Faker) => {
   college.user = new User()
   college.name = faker.company.name()
   college.address = new Address()
+  college.courses = [new Course()]
   return college
 })

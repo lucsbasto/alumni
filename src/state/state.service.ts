@@ -17,7 +17,6 @@ export class StateService {
     if (!country) {
       throw new NotFoundException('Country not found')
     }
-    console.log(input)
     return this.repository.save({
       ...input,
       country
