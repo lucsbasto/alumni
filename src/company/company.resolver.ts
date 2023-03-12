@@ -13,6 +13,11 @@ export class CompanyResolver {
     return this.companyService.findAll()
   }
 
+  @Query(() => Company, { name: 'findCompanyById' })
+  async findOne (@Args('id') id: string): Promise<Company | null> {
+    return this.companyService.findOne(id)
+  }
+
   @Mutation(() => Company, { name: 'createCompany' })
   async create (@Args('createCompanyInput') createCompanyInput: CreateCompanyInput): Promise<Company> {
     return this.companyService.create(createCompanyInput)

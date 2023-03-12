@@ -9,14 +9,23 @@ export class CompanyRepository extends Repository<Company> {
   }
 
   async findAllWithRelations (): Promise<Company[]> {
-    return this.createQueryBuilder('company')
-    .leftJoinAndSelect('company.user', 'user')
-    .leftJoinAndSelect('user.address', 'address')
-    .leftJoinAndSelect('address.city', 'city')
-    .leftJoinAndSelect('city.state', 'state')
-    .leftJoinAndSelect('state.country', 'country')
-    .leftJoinAndSelect('company.jobs', 'job')
-    .leftJoinAndSelect('job.skills', 'skills')
-    .getMany()
+    return this.find({
+      relations: {
+        address: { city: { state: { country: true } } },
+        user: { address: { city: { state: { country: true } } } },
+        jobs: true
+      }
+    })
+  }
+
+  async findOneWithRelations (id: string): Promise<Company | null> {
+    return this.findOne({
+      where: { id },
+      relations: {
+        address: { city: { state: { country: true } } },
+        user: { address: { city: { state: { country: true } } } },
+        jobs: true
+      }
+    })
   }
 }

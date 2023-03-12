@@ -29,13 +29,11 @@ export class CompanyService {
   }
 
   async findAll (): Promise<Company[]> {
-    return this.repository.find({
-      relations: {
-        user: { address: { city: { state: { country: true } } } },
-        address: { city: { state: { country: true } } },
-        jobs: { skills: true }
-      }
-    })
+    return this.repository.findAllWithRelations()
+  }
+
+  async findOne (id: string): Promise<Company | null> {
+    return this.repository.findOneWithRelations(id)
   }
 
   async update (input: UpdateCompanyInput): Promise<Company | null> {

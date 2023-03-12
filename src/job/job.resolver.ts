@@ -1,5 +1,6 @@
 import { Query, Mutation, Resolver, Args } from '@nestjs/graphql'
 import { ApplyForJobInput } from './dto/apply-for-job.input'
+import { CancelApplicationInput } from './dto/cancel-application.input'
 import { CreateJobInput } from './dto/create-job.input'
 import { UpdateJobInput } from './dto/update-job.input'
 import { Job } from './entities/job.entity'
@@ -12,6 +13,11 @@ export class JobResolver {
   @Query(() => [Job], { name: 'findAllJob' })
   async list (): Promise<Job[]> {
     return this.service.findAll()
+  }
+
+  @Query(() => [Job], { name: 'findJobByGraduate' })
+  async findByGraduate (@Args('id') id: string): Promise<Job[]> {
+    return this.service.findByGraduate(id)
   }
 
   @Mutation(() => Job, { name: 'createJob' })
@@ -40,7 +46,12 @@ export class JobResolver {
   }
 
   @Mutation(() => Job, { name: 'applyForJob' })
-  async apply (@Args('applyForJobInput') applyForJobInput: ApplyForJobInput): Promise<Job | null> {
-    return this.service.apply(applyForJobInput)
+  async apply (@Args('input') input: ApplyForJobInput): Promise<Job | null> {
+    return this.service.apply(input)
+  }
+
+  @Mutation(() => Job, { name: 'cancelApplication' })
+  async unapply (@Args('input') input: CancelApplicationInput): Promise<Job | null> {
+    return this.service.cancelApplication(input)
   }
 }

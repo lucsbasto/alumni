@@ -44,4 +44,8 @@ export class JobRepository extends Repository<Job> {
     .leftJoinAndSelect('companyState.country', 'companyCountry')
     .getMany()
   }
+
+  async findByGraduate (id: string): Promise<Job[]> {
+    return this.find({ where: { graduates: { id } } })
+  }
 }

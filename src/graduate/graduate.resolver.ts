@@ -14,6 +14,11 @@ export class GraduateResolver {
     return this.graduateService.findAll(filterGraduateInput)
   }
 
+  @Query(() => Graduate, { name: 'findOneGraduate' })
+  async findOne (@Args('id') id: string): Promise<Graduate | null> {
+    return this.graduateService.findOne(id)
+  }
+
   @Mutation(() => Graduate, { name: 'createGraduate' })
   async create (@Args('createGraduateInput') createGraduateInput: CreateGraduateInput): Promise<Graduate> {
     return this.graduateService.create(createGraduateInput)

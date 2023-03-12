@@ -138,12 +138,15 @@ type Query {
   findCollegeById(id: String!): College!
   findCollegeByName(name: String!): College!
   findAllCompany: [Company!]!
+  findCompanyById(id: String!): Company!
   findAllGraduate(filterGraduateInput: FilterGraduateInput!): [Graduate!]!
+  findOneGraduate(id: String!): Graduate!
   findAllCourse: [Course!]!
   findAllState: [State!]!
   findAllUser: [User!]!
   findAllCountry: [Country!]!
   findAllJob: [Job!]!
+  findJobByGraduate(id: String!): [Job!]!
   findAllSkill: [Skill!]!
 }
 
@@ -193,7 +196,8 @@ type Mutation {
   deleteJob(id: String!): Job!
   closeJob(id: String!): Job!
   findApplicants(id: String!): Job!
-  applyForJob(applyForJobInput: ApplyForJobInput!): Job!
+  applyForJob(input: ApplyForJobInput!): Job!
+  cancelApplication(input: CancelApplicationInput!): Job!
   createSkill(createSkillInput: CreateSkillInput!): Skill!
   updateSkill(updateSkillInput: UpdateSkillInput!): Skill!
   deleteSkill(id: String!): Skill!
@@ -357,6 +361,11 @@ input UpdateJobInput {
 }
 
 input ApplyForJobInput {
+  jobId: String!
+  graduateId: String!
+}
+
+input CancelApplicationInput {
   jobId: String!
   graduateId: String!
 }

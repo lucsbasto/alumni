@@ -32,6 +32,10 @@ export class GraduateService {
     return this.repository.findManyByFilter(filter)
   }
 
+  async findOne (id: string): Promise<Graduate | null> {
+    return this.repository.findOneAndRelated(id)
+  }
+
   async update (input: UpdateGraduateInput): Promise<Graduate | null> {
     const graduate = await this.repository.findOne({ where: { id: input.id } })
     if (!graduate) {

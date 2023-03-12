@@ -51,16 +51,15 @@ export class GraduateRepository extends Repository<Graduate> {
   }
 
   async findOneAndRelated (id: string): Promise<Graduate | null> {
-    return this.createQueryBuilder('graduate')
-    .leftJoinAndSelect('graduate.user', 'user')
-    .leftJoinAndSelect('user.address', 'address')
-    .leftJoinAndSelect('address.city', 'city')
-    .leftJoinAndSelect('city.state', 'state')
-    .leftJoinAndSelect('state.country', 'country')
-    .leftJoinAndSelect('graduate.courses', 'course')
-    .leftJoinAndSelect('graduate.jobs', 'jobs')
-    .leftJoinAndSelect('course.skills', 'skills')
-    .where('graduate.id = :id', { id })
-    .getOne()
+    return this.findOne({
+      where: { id },
+      relations: {
+        user: { address: { city: { state: { country: {} } } } },
+        courses: {
+          college: { user: { address: { city: { state: { country: {} } } } } },
+          skills: true
+        }
+      }
+    })
   }
 }

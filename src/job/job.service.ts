@@ -6,11 +6,10 @@ import { UpdateJobInput } from './dto/update-job.input'
 import { Job } from './entities/job.entity'
 import { JobRepository } from './job.repository'
 import { NotFoundException } from '@nestjs/common/exceptions'
-import { Graduate } from '~/graduate/entities/graduate.entity'
 import { GraduateRepository } from '~/graduate/graduate.repository'
-import { Skill } from '~/skill/entities/skill.entity'
 import { SkillRepository } from '~/skill/skill.repository'
 import { ApplyForJobInput } from './dto/apply-for-job.input'
+import { CancelApplicationInput } from './dto/cancel-application.input'
 
 @Injectable()
 export class JobService {
@@ -53,7 +52,7 @@ export class JobService {
   }
 
   async apply (input: ApplyForJobInput): Promise<Job | null> {
-    const job = await this.repository.findOne({ where: { id: input.jobId } })
+    const job = await this.repository.findOne({ where: { id: input.jobId }, relations: { graduates: true } })
     if (!job) {
       throw new NotFoundException('Job not found or already closed')
     }
@@ -64,5 +63,23 @@ export class JobService {
     job.graduates.push(graduate)
     await this.repository.save(job)
     return this.repository.findOneAndRelated(input.jobId)
+  }
+
+  async cancelApplication (input: CancelApplicationInput): Promise<Job | null> {
+    const job = await this.repository.findOne({ where: { id: input.jobId }, relations: { graduates: true } })
+    if (!job) {
+      throw new NotFoundException('Job not found or already closed')
+    }
+    const graduate = await this.graduateRepository.findOne({ where: { id: input.graduateId } })
+    if (!graduate) {
+      throw new NotFoundException('Graduate not found')
+    }
+    job.graduates = job.graduates.filter(graduate => graduate.id !== input.graduateId)
+    await this.repository.save(job)
+    return this.repository.findOneAndRelated(input.jobId)
+  }
+
+  async findByGraduate (id: string): Promise<Job[]> {
+    return this.repository.findByGraduate(id)
   }
 }
