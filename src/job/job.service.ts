@@ -32,6 +32,10 @@ export class JobService {
     return this.repository.findManyAndRelated()
   }
 
+  async findOne (id: string): Promise<Job | null> {
+    return this.repository.findOneAndRelated(id)
+  }
+
   async update (input: UpdateJobInput): Promise<Job | null> {
     const skills = await this.skillRepository.findBy({ id: In([input.skills]) })
     await this.repository.update({ id: input.id }, { ...input, skills })

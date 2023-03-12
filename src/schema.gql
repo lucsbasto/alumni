@@ -146,6 +146,7 @@ type Query {
   findAllUser: [User!]!
   findAllCountry: [Country!]!
   findAllJob: [Job!]!
+  findJobById(id: String!): Job!
   findJobByGraduate(id: String!): [Job!]!
   findAllSkill: [Skill!]!
 }

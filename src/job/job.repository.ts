@@ -9,40 +9,30 @@ export class JobRepository extends Repository<Job> {
   }
 
   async findOneAndRelated (id: string): Promise<Job | null> {
-    return this.createQueryBuilder('job')
-    .leftJoinAndSelect('job.graduates', 'graduates')
-    .leftJoinAndSelect('graduates.user', 'user')
-    .leftJoinAndSelect('user.address', 'address')
-    .leftJoinAndSelect('address.city', 'city')
-    .leftJoinAndSelect('city.state', 'state')
-    .leftJoinAndSelect('state.country', 'country')
-    .leftJoinAndSelect('graduates.courses', 'course')
-    .leftJoinAndSelect('job.skills', 'skills')
-    .leftJoinAndSelect('job.company', 'company')
-    .leftJoinAndSelect('company.address', 'companyAddress')
-    .leftJoinAndSelect('companyAddress.city', 'companyCity')
-    .leftJoinAndSelect('companyCity.state', 'companyState')
-    .leftJoinAndSelect('companyState.country', 'companyCountry')
-    .where('job.id = :id', { id })
-    .getOne()
+    return this.findOne({
+      where: { id },
+      relations: {
+        graduates: { user: { address: { city: { state: { country: true } } } } },
+        company: {
+          user: { address: { city: { state: { country: true } } } },
+          address: { city: { state: { country: true } } }
+        },
+        skills: true
+      }
+    })
   }
 
   async findManyAndRelated (): Promise<Job[]> {
-    return this.createQueryBuilder('job')
-    .leftJoinAndSelect('job.graduates', 'graduates')
-    .leftJoinAndSelect('graduates.user', 'user')
-    .leftJoinAndSelect('user.address', 'address')
-    .leftJoinAndSelect('address.city', 'city')
-    .leftJoinAndSelect('city.state', 'state')
-    .leftJoinAndSelect('state.country', 'country')
-    .leftJoinAndSelect('graduates.courses', 'course')
-    .leftJoinAndSelect('job.skills', 'skills')
-    .leftJoinAndSelect('job.company', 'company')
-    .leftJoinAndSelect('company.address', 'companyAddress')
-    .leftJoinAndSelect('companyAddress.city', 'companyCity')
-    .leftJoinAndSelect('companyCity.state', 'companyState')
-    .leftJoinAndSelect('companyState.country', 'companyCountry')
-    .getMany()
+    return this.find({
+      relations: {
+        graduates: { user: { address: { city: { state: { country: true } } } } },
+        company: {
+          user: { address: { city: { state: { country: true } } } },
+          address: { city: { state: { country: true } } }
+        },
+        skills: true
+      }
+    })
   }
 
   async findByGraduate (id: string): Promise<Job[]> {

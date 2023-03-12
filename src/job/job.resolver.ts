@@ -11,8 +11,13 @@ export class JobResolver {
   constructor (private readonly service: JobService) {}
 
   @Query(() => [Job], { name: 'findAllJob' })
-  async list (): Promise<Job[]> {
+  async findAll (): Promise<Job[]> {
     return this.service.findAll()
+  }
+
+  @Query(() => Job, { name: 'findJobById' })
+  async findById (@Args('id') id: string): Promise<Job | null> {
+    return this.service.findOne(id)
   }
 
   @Query(() => [Job], { name: 'findJobByGraduate' })
