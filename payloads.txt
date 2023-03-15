@@ -1,0 +1,470 @@
+*Country*
+
+# # Write your query or mutation here
+# mutation createCountry {
+#   createCountry(createCountryInput: { name: "Brasil", code: "BR"}){
+#     id
+#     code
+#     name
+#   }
+# }
+
+query findCountry {
+  findAllCountry{
+    id
+    name
+    code
+  }
+}
+
+query findState {
+  findAllState{
+    id
+    UF
+    name
+    country{
+      id
+    }
+  }
+}
+
+
+mutation createState {
+  createState(createStateInput: {name: "Ceará", UF: "CE", countryId: "90bb196e-59dc-44a7-82c2-f4850c9eb767"}){
+    id
+    UF
+    name
+    country{
+      id
+      name
+      code
+    }
+  }
+}
+
+mutation createCity {
+  createCity(createCityInput: {name: "Monte Santoo", stateId:"052b11f4-d687-4d41-b120-6b6ed5862d86"}){
+    id
+    name
+    state {
+      name
+      country{
+        name
+      }
+    }
+  }
+}
+
+query findAllCity {
+  findAllCity{
+    id
+    name
+    state {
+      id
+      name
+      UF
+    }
+  }
+}
+
+
+ *Address*
+ # # Write your query or mutation here
+# mutation createCountry {
+#   createCountry(createCountryInput: { name: "Brasil", code: "BR"}){
+#     id
+#     code
+#     name
+#   }
+# }
+
+query findCountry {
+  findAllCountry{
+    id
+    name
+    code
+  }
+}
+
+query findState {
+  findAllState{
+    id
+    UF
+    name
+    country{
+      id
+    }
+  }
+}
+
+
+mutation createState {
+  createState(createStateInput: {name: "Ceará", UF: "CE", countryId: "90bb196e-59dc-44a7-82c2-f4850c9eb767"}){
+    id
+    UF
+    name
+    country{
+      id
+      name
+      code
+    }
+  }
+}
+
+mutation createCity {
+  createCity(createCityInput: {name: "Monte Santoo", stateId:"052b11f4-d687-4d41-b120-6b6ed5862d86"}){
+    id
+    name
+    state {
+      name
+      country{
+        name
+      }
+    }
+  }
+}
+
+query findAllCity {
+  findAllCity{
+    id
+    name
+    state {
+      id
+      name
+      UF
+    }
+  }
+}
+
+*College*
+# mutation CreateCollege {
+#   createCollege(createCollegeInput: {
+#     name: "ITPAC",
+#     userId:  "fc3358b5-e599-47c5-8557-72fce5f80724",
+#     addressId: "81480038-52fe-4698-8ac4-0a918b879182"
+#   }){
+#     name
+#     user{
+#       firstName
+#     }
+#   }
+# }
+
+query FindAllColleges{
+  findAllCollege {
+    id
+    name
+    courses{
+      name
+       graduates{
+        user{
+          firstName
+        }
+      }
+    }
+    address {
+      street
+    }
+  }
+}
+
+query findCollegeById{
+  findCollegeById(id:  "297f9107-f8c4-4e2a-b9e1-fe3686e8c68f",){
+    id
+    name
+    courses{
+      name
+      graduates{
+        user{
+          firstName
+        }
+      }
+    }
+  }
+}
+
+*Course*
+query findAllCourse{
+  findAllCourse{
+    id
+    name
+    degree
+    description,
+    college{
+      name
+    }
+  }
+}
+
+mutation createCourse {
+  createCourse(createCourseInput: {name: "Nutrição", degree: "bacharel", description: "fala o que comer pra emagrecer"}){
+    name
+    description
+  }
+}
+
+mutation updateCourse {
+  updateCourse(updateCourseInput: {id: "9194ae4c-695f-4a5e-9486-644cf3194bea", description:"fala pra fazer dieta"}){
+    name
+    description
+  }
+}
+
+mutation deleteCourse{
+  deleteCourse(id:  "9194ae4c-695f-4a5e-9486-644cf3194bea"){
+  	name
+  }
+}
+
+
+*Jobs*
+query findAllJob{
+  findAllJob{
+    id
+    name
+    isOpen
+    experienceLevel
+    description
+    skills {
+      name
+    }
+    company {
+      cnpj
+      name
+    }
+  }
+}
+
+query findJobById{
+  findJobById(id: "746fa97f-6a28-4ab4-97a9-a701e29f38aa"){
+    id
+    name
+    isOpen
+    experienceLevel
+    description
+    skills {
+      name
+    }
+    company {
+      cnpj
+      name
+    }
+  }
+}
+
+mutation findApplicants {
+  findApplicants(id:"746fa97f-6a28-4ab4-97a9-a701e29f38aa"){
+    id
+    name
+    graduates {
+      id
+      startGraduation
+      user{
+        firstName
+      }
+    }
+  }
+}
+
+query findByGraduate{
+  findJobByGraduate(id: "93965a9b-6e0b-46fa-aa88-6df24798c9dc"){
+    id
+    name
+  }
+}
+
+mutation applyForJob{
+  applyForJob(input: {
+    jobId:"746fa97f-6a28-4ab4-97a9-a701e29f38aa",
+    graduateId: "93965a9b-6e0b-46fa-aa88-6df24798c9dc"
+  }){
+    name
+    graduates{
+      id
+    }
+  }
+}
+
+mutation cancelApplication {
+  cancelApplication(input: {
+    jobId:"746fa97f-6a28-4ab4-97a9-a701e29f38aa",
+    graduateId: "93965a9b-6e0b-46fa-aa88-6df24798c9dc"
+  }){
+    graduates{
+      id
+      user {
+      	firstName
+      }
+    }
+  }
+}
+
+*Graduates*
+query findAllGraduate {
+  findAllGraduate(filterGraduateInput: {}){
+    id
+		user {
+      id
+      firstName
+    }
+  }
+}
+
+query findOneGraduate{
+  findOneGraduate(id: "f7273375-ea77-4922-97c7-4a68c806797d"){
+    id
+  }
+}
+
+mutation updateGraduate {
+  updateGraduate(updateGraduateInput: {
+    id: "e63bff04-d053-48d1-9068-6724eb55885f",
+    user: {
+      firstName: "Teste"
+    }
+  }){
+   id
+    user {
+      id
+      firstName
+    }
+  }
+}
+
+*Company*
+query findAllCompany {
+  findAllCompany{
+    id
+    cnpj
+    name
+    jobs{
+      id
+    }
+    address{
+      street
+    }
+    user{
+      firstName
+      address{
+        street
+        city{
+          name
+          state{
+						name
+            country{
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query findCompanyById {
+  findCompanyById(id: "f2a3cf72-7e92-4438-85b1-2eb9814085ee"){
+    id
+    cnpj
+    name
+    jobs{
+      id
+    }
+    address{
+      street
+    }
+    user{
+      firstName
+      address{
+        street
+        city{
+          name
+          state{
+						name
+            country{
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+mutation updateCompany{
+  updateCompany(updateCompanyInput: {
+    id: "530154a7-83b4-4b47-aeb4-8f342eae4bd4",
+  	name: "Coca Cola ltda"
+  }){
+    name
+  }
+}
+
+mutation createCompany{
+  createCompany(createCompanyInput: {
+    user: {
+      firstName: "Admin",
+      lastName: "Coca Cola",
+      email: "admin@cocacola.com",
+      password: "123456",
+      birthdate: "06/05/1995",
+      phone: "63999999999",
+      address: {
+        block: "bloco c",
+        street: "rua a",
+        zipcode: "77000000",
+        cityId: "9149c0f3-1465-4ed1-8e0d-246e51c32cdd",
+        lot: "NA",
+        number: "SN"
+        complement: "CASA"
+      },
+      isAdmin: false
+    },
+      address: {
+        block: "Bloco A",
+        street: "rua B",
+        zipcode: "77000000",
+        cityId: "9149c0f3-1465-4ed1-8e0d-246e51c32cdd",
+        lot: "NA",
+        number: "SN",
+        complement: "CASA"
+      },
+    cnpj: "07.954.283/0001-50",
+    name: "Coca Cola ltda"
+  }){
+    name
+  	cnpj
+  }
+}
+
+*Skills*
+
+query findAllSkills{
+  findAllSkill{
+    id
+		name
+    level
+  }
+}
+mutation createSkill {
+  createSkill(createSkillInput:{name: "Formatar computador", degree: "Bacharel", description: "formatar o computador do tio", level: PROFICIENT}){
+    id
+    name
+  }
+}
+
+
+mutation updateSkill{
+  updateSkill(updateSkillInput: {level: EXPERT, id: "ad1bf65c-8dc7-425c-8c40-5ebf077fd975"}){
+    level
+    name
+    id
+  }
+}
+
+mutation deleteSkill{
+  deleteSkill(id: "ad1bf65c-8dc7-425c-8c40-5ebf077fd975"){
+    name
+  }
+}
