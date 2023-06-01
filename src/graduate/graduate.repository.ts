@@ -58,7 +58,8 @@ export class GraduateRepository extends Repository<Graduate> {
         courses: {
           college: { user: { address: { city: { state: { country: {} } } } } },
           skills: true
-        }
+        },
+        workExperience: true
       }
     })
   }

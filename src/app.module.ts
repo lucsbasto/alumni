@@ -26,9 +26,15 @@ import { State } from './state/entities/state.entity'
 import { User } from './user/entities/user.entity'
 import { Company } from './company/entities/company.entity'
 import { SkillModule } from './skill/skill.module'
+import { WorkExperienceModule } from './work-experience/work-experience.module'
+import { WorkExperience } from './work-experience/entities/work-experience.entity'
+import { DevtoolsModule } from '@nestjs/devtools-integration'
 
 @Module({
   imports: [
+    DevtoolsModule.register({
+      http: process.env.NODE_ENV !== 'production'
+    }),
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true
@@ -40,7 +46,7 @@ import { SkillModule } from './skill/skill.module'
       password: process.env.DB_PASS!,
       database: process.env.DB_NAME!,
       type: 'postgres',
-      entities: [Address, City, College, Company, Country, Graduate, Job, Course, Skill, State, User],
+      entities: [Address, City, College, Company, Country, Graduate, Job, Course, Skill, State, User, WorkExperience],
       synchronize: true,
       logging: true,
       autoLoadEntities: true
@@ -59,9 +65,9 @@ import { SkillModule } from './skill/skill.module'
     UserModule,
     CountryModule,
     JobModule,
-    SkillModule
+    SkillModule,
+    WorkExperienceModule
 ],
-  controllers: [],
   providers: []
 })
 export class AppModule {}

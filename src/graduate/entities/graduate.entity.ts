@@ -4,6 +4,7 @@ import { Job } from '~/job/entities/job.entity'
 import { Course } from '~/course/entities/course.entity'
 import { User } from '~/user/entities/user.entity'
 import { Skill } from '~/skill/entities/skill.entity'
+import { WorkExperience } from '~/work-experience/entities/work-experience.entity'
 
 @Entity()
 @ObjectType()
@@ -16,6 +17,11 @@ export class Graduate {
   @OneToOne(_type => User, { cascade: true })
   @JoinColumn({ name: 'userId' })
   user: User
+
+  @Field(_type => WorkExperience)
+  @OneToOne(_type => WorkExperience, { cascade: true, nullable: true })
+  @JoinColumn({ name: 'workExperienceId' })
+  workExperience: WorkExperience
 
   @Field()
   @Column()

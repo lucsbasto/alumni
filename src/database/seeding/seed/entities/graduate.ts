@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { User, Job, Course } from '.'
+import { User, Job, Course, WorkExperience } from '../entities'
 
 @Entity()
 @ObjectType()
@@ -13,6 +13,11 @@ export class Graduate {
   @OneToOne(_type => User, { cascade: true })
   @JoinColumn({ name: 'userId' })
   user: User
+
+  @Field(_type => WorkExperience)
+  @OneToOne(_type => WorkExperience, { cascade: true, nullable: true })
+  @JoinColumn({ name: 'workExperienceId' })
+  workExperience: WorkExperience
 
   @Field()
   @Column()

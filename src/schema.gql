@@ -111,9 +111,20 @@ enum WorkModel {
   ON_SITE
 }
 
+type WorkExperience {
+  id: String!
+  title: String!
+  type: String!
+  companyName: String!
+  startDate: String!
+  endDate: String!
+  description: String!
+}
+
 type Graduate {
   id: String!
   user: User!
+  workExperience: WorkExperience!
   startGraduation: String!
   endGraduation: String!
   courses: [Course!]!

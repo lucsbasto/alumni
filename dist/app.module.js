@@ -20,20 +20,32 @@ const country_module_1 = require("./country/country.module");
 const state_module_1 = require("./state/state.module");
 const user_module_1 = require("./user/user.module");
 const city_module_1 = require("./city/city.module");
-const major_module_1 = require("./major/major.module");
+const company_module_1 = require("./company/company.module");
+const course_module_1 = require("./course/course.module");
+const job_module_1 = require("./job/job.module");
 const address_entity_1 = require("./address/entities/address.entity");
 const city_entity_1 = require("./city/entities/city.entity");
 const college_entity_1 = require("./college/entities/college.entity");
 const country_entity_1 = require("./country/entities/country.entity");
 const graduate_entity_1 = require("./graduate/entities/graduate.entity");
-const major_entity_1 = require("./major/entities/major.entity");
+const job_entity_1 = require("./job/entities/job.entity");
+const course_entity_1 = require("./course/entities/course.entity");
+const skill_entity_1 = require("./skill/entities/skill.entity");
 const state_entity_1 = require("./state/entities/state.entity");
 const user_entity_1 = require("./user/entities/user.entity");
+const company_entity_1 = require("./company/entities/company.entity");
+const skill_module_1 = require("./skill/skill.module");
+const work_experience_module_1 = require("./work-experience/work-experience.module");
+const work_experience_entity_1 = require("./work-experience/entities/work-experience.entity");
+const devtools_integration_1 = require("@nestjs/devtools-integration");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            devtools_integration_1.DevtoolsModule.register({
+                http: process.env.NODE_ENV !== 'production'
+            }),
             config_1.ConfigModule.forRoot({
                 envFilePath: '.env',
                 isGlobal: true
@@ -45,9 +57,10 @@ AppModule = __decorate([
                 password: process.env.DB_PASS,
                 database: process.env.DB_NAME,
                 type: 'postgres',
-                entities: [address_entity_1.Address, city_entity_1.City, college_entity_1.College, country_entity_1.Country, graduate_entity_1.Graduate, major_entity_1.Major, state_entity_1.State, user_entity_1.User],
+                entities: [address_entity_1.Address, city_entity_1.City, college_entity_1.College, company_entity_1.Company, country_entity_1.Country, graduate_entity_1.Graduate, job_entity_1.Job, course_entity_1.Course, skill_entity_1.Skill, state_entity_1.State, user_entity_1.User, work_experience_entity_1.WorkExperience],
                 synchronize: true,
-                logging: false
+                logging: true,
+                autoLoadEntities: true
             }),
             graphql_1.GraphQLModule.forRoot({
                 driver: apollo_1.ApolloDriver,
@@ -56,13 +69,16 @@ AppModule = __decorate([
             address_module_1.AddressModule,
             city_module_1.CityModule,
             college_module_1.CollegeModule,
-            country_module_1.CountryModule,
+            company_module_1.CompanyModule,
             graduate_module_1.GraduateModule,
-            major_module_1.MajorModule,
+            course_module_1.CourseModule,
             state_module_1.StateModule,
-            user_module_1.UserModule
+            user_module_1.UserModule,
+            country_module_1.CountryModule,
+            job_module_1.JobModule,
+            skill_module_1.SkillModule,
+            work_experience_module_1.WorkExperienceModule
         ],
-        controllers: [],
         providers: []
     })
 ], AppModule);
