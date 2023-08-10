@@ -31,8 +31,8 @@ export class AddressService {
   }
 
   async update (_input: UpdateAddressInput): Promise<Address | null> {
-    const address = await this.repository.findOne({ where: { id: _input.id } })
-    return address
+    await this.repository.update({ id: _input.id }, { ..._input })
+    return this.repository.findOne({ where: { id: _input.id } })
   }
 
   async delete (id: string): Promise<void> {

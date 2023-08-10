@@ -221,8 +221,6 @@ input CreateAddressInput {
   zipcode: String!
   cityId: String!
   number: String!
-  lot: String!
-  complement: String!
 }
 
 input UpdateAddressInput {

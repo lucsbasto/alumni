@@ -1,4 +1,4 @@
-import { Field, InputType, Int } from '@nestjs/graphql'
+import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
 export class CreateAddressInput {
@@ -16,10 +16,4 @@ export class CreateAddressInput {
 
   @Field()
   number: string
-
-  @Field()
-  lot: string
-
-  @Field()
-  complement: string
 }
